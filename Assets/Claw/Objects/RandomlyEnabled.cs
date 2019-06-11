@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class RandomlyEnabled : MonoBehaviour {
 
-	public float percentageChanceEnabled = 0.75f;
+	[SerializeField] private float percentageChanceEnabled = 0.75f;
 
 	private void Start() {
 		

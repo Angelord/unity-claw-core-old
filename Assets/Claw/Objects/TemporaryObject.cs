@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class TemporaryObject : MonoBehaviour {
 
-	public float lifetime = 1.0f;
+	[SerializeField] private float lifetime = 1.0f;
 
 	private void Start() {
 		Invoke("DestroySelf", lifetime);
