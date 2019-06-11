@@ -1,16 +1,17 @@
 using UnityEngine;
 
 namespace Claw.AI.Steering {
-    [RequireComponent(typeof(Rigidbody))]
+    [RequireComponent(typeof(Rigidbody2D), typeof(SteerableObject))]
     public class SteeringController : MonoBehaviour {
 
-        [SerializeField] private float maxForce;
-        private Rigidbody rBody;
+        private SteerableObject steerable;
+        private Rigidbody2D rBody;
         private SteeringBehaviour[] behaviours;
 
         private Vector2 accumForce;
         private void Start() {
-            rBody = GetComponent<Rigidbody>();
+            steerable = GetComponent<SteerableObject>();
+            rBody = GetComponent<Rigidbody2D>();
             behaviours = GetComponents<SteeringBehaviour>();
         }
 
@@ -28,14 +29,14 @@ namespace Claw.AI.Steering {
                 }
             }
             
-            rBody.AddForce(accumForce);
+            rBody.AddForce(accumForce, ForceMode2D.Impulse);
         }
 
         private bool AccumulateForce(Vector2 toAdd) {
             
             float magCurrent = accumForce.magnitude;
 
-            float magRemaining = maxForce - magCurrent;
+            float magRemaining = steerable.MaxForce - magCurrent;
             if (magRemaining <= 0.0f) { return false; }
 
             float magToAdd = toAdd.magnitude;

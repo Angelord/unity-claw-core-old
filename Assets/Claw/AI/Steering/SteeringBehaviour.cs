@@ -1,4 +1,5 @@
 
+using System;
 using UnityEngine;
 
 namespace Claw.AI.Steering {
@@ -6,13 +7,22 @@ namespace Claw.AI.Steering {
     public abstract class SteeringBehaviour : MonoBehaviour {
 
         [SerializeField] private float multiplier = 1.0f;
-
+        private Rigidbody2D rBody;
+        private SteerableObject steerable;
+        
         public float Multiplier { get { return multiplier; } set { multiplier = value; } }
+        protected Rigidbody2D Rigidbody { get { return rBody; } }
+        protected SteerableObject Steerable { get { return steerable; } }
 
-        public Vector3 CalculateForce() {
-            return DoCalculation() * multiplier;
+        private void Start() {
+            rBody = GetComponent<Rigidbody2D>();
+            steerable = GetComponent<SteerableObject>();
         }
 
-        protected abstract Vector3 DoCalculation();
+        public Vector2 CalculateForce() {
+            return DoForceCalculation() * multiplier;
+        }
+
+        protected abstract Vector2 DoForceCalculation();
     }
 }
