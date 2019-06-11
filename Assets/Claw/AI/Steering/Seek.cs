@@ -4,8 +4,8 @@ using UnityEngine;
 namespace Claw.AI.Steering {
     public class Seek : SteeringBehaviour {
 
-        [SerializeField] private Vector2 targetPos;
         [SerializeField] private Transform target;
+        [SerializeField] private Vector2 targetPos;
 
         protected override Vector2 DoForceCalculation() {
 
