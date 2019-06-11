@@ -18,4 +18,4 @@ namespace Claw.AI.Steering {
             return (desiredVelocity - Rigidbody.velocity);
         }
     }
-}g
+}
