@@ -20,7 +20,7 @@ namespace Claw {
 
         private static void TryCreateInstance() {
             if (instance == null) {
-                instance = (new GameObject("EventManager")).AddComponent<EventManager>();
+                instance = (new GameObject("EventManagerRunner")).AddComponent<EventManager>();
             }
         }
 
