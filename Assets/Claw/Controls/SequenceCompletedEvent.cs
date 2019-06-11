@@ -1,5 +1,5 @@
 ﻿
-namespace Claw.InputEx {
+namespace Claw.Controls {
     public class SequenceCompletedEvent : GameEvent {
 
         private readonly string seqName;

@@ -1,8 +1,8 @@
 using UnityEngine;
 
-namespace Claw.InputEx {
+namespace Claw.Controls {
 	[System.Serializable]
-	public class Sequence {
+	internal class Sequence {
 		[SerializeField] private string name;
 		[SerializeField] private float timeLimit;
 		[SerializeField] private string[] inputs;

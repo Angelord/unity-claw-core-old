@@ -1,7 +1,7 @@
 ﻿using System;
 using UnityEngine;
 
-namespace Claw.InputEx {
+namespace Claw.Controls {
     public class ButtonSequenceDetector : MonoBehaviour {
 
         [SerializeField] private bool sendEvent = true;
