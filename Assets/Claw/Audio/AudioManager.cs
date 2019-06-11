@@ -5,7 +5,7 @@ using System.Collections.Generic;
 
 namespace Claw.Audio {
     [RequireComponent(typeof(AudioSource))]
-    public class AudioController : MonoBehaviour {
+    public class AudioManager : MonoBehaviour {
         
         [SerializeField] private string initialSong;
         [SerializeField] private float loopOffset;
@@ -19,7 +19,7 @@ namespace Claw.Audio {
         private AudioMixerGroup currentSfxMixer;
         private Coroutine skippingCoroutine;
         
-        public static AudioController Instance { get; private set; }
+        public static AudioManager Instance { get; private set; }
         public bool Fading { get; set; }
         public string LoopName {
             get {
