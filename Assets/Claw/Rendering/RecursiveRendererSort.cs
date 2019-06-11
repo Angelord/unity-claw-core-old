@@ -2,28 +2,25 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class RecursiveRendererSort : MonoBehaviour {
+namespace Claw.Rendering {
+    public class RecursiveRendererSort : MonoBehaviour {
 
-    public int sortOrder;
+        [SerializeField] private int sortOrder;
 
-    void Start()
-    {
-        ChangeSortingOrder(sortOrder);
-    }
-
-    public void ChangeSortingOrder (int order)
-    {
-        foreach (Renderer r in GetComponentsInChildren<Renderer>())
-        {
-            r.sortingOrder += order;
+        void Start() {
+            ChangeSortingOrder(sortOrder);
         }
-    }
 
-    public void SetSortingOrder(int order)
-    {
-        foreach (Renderer r in GetComponentsInChildren<Renderer>())
-        {
-            r.sortingOrder = order;
+        public void ChangeSortingOrder(int order) {
+            foreach (Renderer r in GetComponentsInChildren<Renderer>()) {
+                r.sortingOrder += order;
+            }
+        }
+
+        public void SetSortingOrder(int order) {
+            foreach (Renderer r in GetComponentsInChildren<Renderer>()) {
+                r.sortingOrder = order;
+            }
         }
     }
 }

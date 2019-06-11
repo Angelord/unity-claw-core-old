@@ -1,17 +1,14 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
+﻿using UnityEngine;
 
-public class CollisionIgnorer : MonoBehaviour {
+namespace Claw.Physics {
+	public class CollisionIgnorer : MonoBehaviour {
 
-	[SerializeField] private string layerToIgnore;
+		[SerializeField] private string layerToIgnore;
 
-	private void OnCollisionEnter(Collision collision) {
-		Debug.Log("Collision enter");
-		if (collision.gameObject.layer == LayerMask.NameToLayer(layerToIgnore)) {
-			Debug.Log("Collision ignore");
-			
-			Physics.IgnoreCollision(collision.collider, GetComponent<Collider>());
+		private void OnCollisionEnter(Collision collision) {
+			if (collision.gameObject.layer == LayerMask.NameToLayer(layerToIgnore)) {
+				UnityEngine.Physics.IgnoreCollision(collision.collider, GetComponent<Collider>());
+			}
 		}
 	}
 }

@@ -2,16 +2,18 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class TemporaryObject : MonoBehaviour {
+namespace Claw.Objects {
+	public class TemporaryObject : MonoBehaviour {
 
-	[SerializeField] private float lifetime = 1.0f;
+		[SerializeField] private float lifetime = 1.0f;
 
-	private void Start() {
-		Invoke("DestroySelf", lifetime);
-	}
+		private void Start() {
+			Invoke("DestroySelf", lifetime);
+		}
 
-	private void DestroySelf() {
-		Destroy(this.gameObject);
+		private void DestroySelf() {
+			Destroy(this.gameObject);
+		}
 	}
 }
 
