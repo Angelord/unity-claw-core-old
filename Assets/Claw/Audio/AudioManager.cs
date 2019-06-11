@@ -12,7 +12,7 @@ namespace Claw.Audio {
         private AudioSource source;
         private readonly List<AudioClip> sfx = new List<AudioClip>();
         private readonly List<AudioClip> loops = new List<AudioClip>();
-        private string currentSong = "";
+        private string currentSong = string.Empty;
         private readonly Dictionary<string, float> limitedFrequencySounds = new Dictionary<string, float>();
         private readonly Dictionary<string, int> lastPlayedSounds = new Dictionary<string, int>();
         private readonly List<AudioMixer> loadedMixers = new List<AudioMixer>();
@@ -35,9 +35,7 @@ namespace Claw.Audio {
                 if (source.clip != null) {
                     return source.volume;
                 }
-                else {
-                    return 0f;
-                }
+                return 0.0f;
             }
         }
         public float LoopTimeNormalized {
@@ -45,22 +43,12 @@ namespace Claw.Audio {
                 if (source != null && source.clip != null) {
                     return 1f - ((source.clip.length - source.time) / source.clip.length);
                 }
-                else {
-                    return 0f;
-                }
+                return 0.0f;
             }
         }
+        
         void Awake() {
             if (Instance) {
-                if (!string.IsNullOrEmpty(initialSong)) {
-                    if (!string.IsNullOrEmpty(initialSong)) {
-                        Instance.FadeLoopIfNotPlaying(initialSong, 1f);
-                    }
-                    else {
-                        Instance.currentSong = string.Empty;
-                    }
-                }
-
                 Destroy(gameObject);
                 return;
             }
@@ -71,12 +59,12 @@ namespace Claw.Audio {
 
             source = GetComponent<AudioSource>();
 
-            foreach (object o in Resources.LoadAll("Audio/SFX")) {
-                sfx.Add((AudioClip) o);
+            foreach (Object sfxRes in Resources.LoadAll("Audio/SFX")) {
+                sfx.Add((AudioClip) sfxRes);
             }
 
-            foreach (object o in Resources.LoadAll("Audio/Loops")) {
-                loops.Add((AudioClip) o);
+            foreach (Object loopRes in Resources.LoadAll("Audio/Loops")) {
+                loops.Add((AudioClip) loopRes);
             }
 
             if (!string.IsNullOrEmpty(initialSong)) {
