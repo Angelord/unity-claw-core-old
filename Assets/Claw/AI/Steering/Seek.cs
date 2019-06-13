@@ -13,9 +13,9 @@ namespace Claw.AI.Steering {
                 targetPos = target.position;
             }
 
-            Vector2 desiredVelocity = (targetPos - (Vector2)transform.position).normalized * Steerable.MaxSpeed;
+            Vector2 desiredVel = (targetPos - (Vector2)transform.position).normalized * Steerable.MaxSpeed;
             
-            return (desiredVelocity - Rigidbody.velocity);
+            return (desiredVel - Rigidbody.velocity);
         }
     }
 }
