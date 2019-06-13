@@ -17,12 +17,15 @@ namespace Claw.AI.Steering {
         private void Start() {
             rBody = GetComponent<Rigidbody2D>();
             steerable = GetComponent<SteerableObject>();
+            OnStart();
         }
-
+        
         public Vector2 CalculateForce() {
             return DoForceCalculation() * multiplier;
         }
 
         protected abstract Vector2 DoForceCalculation();
+
+        protected virtual void OnStart() { }
     }
 }
