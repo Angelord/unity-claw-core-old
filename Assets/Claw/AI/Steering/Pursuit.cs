@@ -8,11 +8,7 @@ namespace Claw.AI.Steering {
 		private Seek seek;
 		
 		protected override void OnInitialize() {
-			seek = GetComponent<Seek>();
-			if (seek == null) {
-				seek = Controller.AddBehaviour<Seek>();
-				seek.enabled = false;
-			}
+			seek = RequireBehaviour<Seek>();
 		}
 
 		protected override Vector2 DoForceCalculation() {

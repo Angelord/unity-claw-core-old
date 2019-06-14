@@ -27,6 +27,16 @@ namespace Claw.AI.Steering {
         
         protected virtual void OnInitialize() { }
 
+        protected T RequireBehaviour<T>() where T : SteeringBehaviour {
+            T behaviour = GetComponent<T>();
+            if (behaviour == null) {
+                behaviour = Controller.AddBehaviourBack<T>();
+                behaviour.enabled = false;
+            }
+
+            return behaviour;
+        }
+
         //Needed so we can set [enabled] in the inspector
         private void Update() { }
     }

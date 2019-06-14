@@ -15,14 +15,22 @@ namespace Claw.AI.Steering {
         public float MaxSpeed { get { return maxSpeed; } }
         public float MaxForce { get { return maxForce; } }
         public float MaxRotation { get { return maxRotation; } }
+        
+        public T AddBehaviourBack<T>() where T : SteeringBehaviour {
+            return AddBehaviour<T>(behaviours.Count);
+        }
 
-        public T AddBehaviour<T>(int priority = 0) where T : SteeringBehaviour {
+        public T AddBehaviourFront<T>() where T : SteeringBehaviour {
+            return AddBehaviour<T>(0);
+        }
+        
+        public T AddBehaviour<T>(int pos = 0) where T : SteeringBehaviour {
             T newBehaviour = gameObject.AddComponent<T>();
 
-            if (priority < 0) { priority = 0; }
-            else if (priority > behaviours.Count) { priority = behaviours.Count; }
+            if (pos < 0) { pos = 0; }
+            else if (pos > behaviours.Count) { pos = behaviours.Count; }
 
-            behaviours.Insert(priority, newBehaviour);
+            behaviours.Insert(pos, newBehaviour);
             newBehaviour.Initialize();
             return newBehaviour;
         }
