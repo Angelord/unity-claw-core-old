@@ -27,8 +27,9 @@ namespace Claw.AI.Steering {
                 breakingDir *= breakingWeight * multiplier;
 
                 steeringDir += breakingDir;
+
                 
-                return steeringDir;
+                return (steeringDir - Rigidbody.velocity);
                 
                 //TODO : Implement a tweakable breaking force
             }

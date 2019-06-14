@@ -1470,7 +1470,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1e0f90852f9a456eaedfffdc138c7a3f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  multiplier: 1
+  multiplier: 0.5
   obstacleLayer: Obstacles
   seeingDist: 6
   avoidanceWidth: 1.65
