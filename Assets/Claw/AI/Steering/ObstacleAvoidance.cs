@@ -30,8 +30,6 @@ namespace Claw.AI.Steering {
 
                 
                 return (steeringDir - Rigidbody.velocity);
-                
-                //TODO : Implement a tweakable breaking force
             }
          
             return Vector2.zero;
