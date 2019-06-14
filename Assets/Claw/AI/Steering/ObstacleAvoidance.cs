@@ -9,6 +9,7 @@ namespace Claw.AI.Steering {
         [SerializeField] private string obstacleLayer = "Obstacles";
         [SerializeField] private float seeingDist = 10.0f;
         [SerializeField] private float avoidanceWidth = 4.0f;
+        [SerializeField] private float breakingWeight = 0.1f;
         private RaycastHit2D hitInfo;
         private bool hit;
         
@@ -20,6 +21,13 @@ namespace Claw.AI.Steering {
                 Vector2 steeringDir = hitInfo.point - (Vector2)hitInfo.transform.position;
                 steeringDir.Normalize();
                 steeringDir *= multiplier;
+
+                Vector2 breakingDir = (Vector2)transform.position - hitInfo.point;
+                breakingDir.Normalize();
+                breakingDir *= breakingWeight * multiplier;
+
+                steeringDir += breakingDir;
+                
                 return steeringDir;
                 
                 //TODO : Implement a tweakable breaking force
