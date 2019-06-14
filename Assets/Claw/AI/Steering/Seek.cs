@@ -12,9 +12,9 @@ namespace Claw.AI.Steering {
             set { target = value; }
         }
 
-        public Vector2 CalculateForce(Vector2 position) {
+        public Vector2 CalculateForce(Vector2 targetPos) {
             
-            Vector2 desiredVel = (position - (Vector2)transform.position).normalized * Controller.MaxSpeed;
+            Vector2 desiredVel = (targetPos - (Vector2)transform.position).normalized * Controller.MaxSpeed;
             
             return (desiredVel - Rigidbody.velocity);
         }

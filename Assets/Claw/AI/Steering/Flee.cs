@@ -16,13 +16,13 @@ namespace Claw.AI.Steering {
 			}
 		}
 
-		public Vector2 CalculateForce(Vector2 position) {
+		public Vector2 CalculateForce(Vector2 targetPos) {
 			
-			if (Vector2.SqrMagnitude((Vector2)transform.position - position) > panicDistanceSq) {
+			if (Vector2.SqrMagnitude((Vector2)transform.position - targetPos) > panicDistanceSq) {
 				return Vector2.zero;
 			}
 
-			Vector2 desiredVel = ((Vector2)transform.position - position).normalized * Controller.MaxSpeed;
+			Vector2 desiredVel = ((Vector2)transform.position - targetPos).normalized * Controller.MaxSpeed;
 
 			return (desiredVel - Rigidbody.velocity);
 		}

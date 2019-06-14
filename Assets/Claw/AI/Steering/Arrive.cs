@@ -6,13 +6,9 @@ namespace Claw.AI.Steering {
         [SerializeField] private Transform target;
         [SerializeField] private Vector2 targetPos;
         [SerializeField] private float decceleration = 1.0f;
-        
-        protected override Vector2 DoForceCalculation() {
 
-            if (target != null) {
-                targetPos = target.position;
-            }
-
+        public Vector2 CalculateForce(Vector2 targetPos) {
+            
             Vector2 toTarget = targetPos - (Vector2)transform.position;
 
             float distance = toTarget.magnitude;
@@ -29,6 +25,15 @@ namespace Claw.AI.Steering {
             }
 
             return Vector2.zero;
+        }
+
+        protected override Vector2 DoForceCalculation() {
+
+            if (target != null) {
+                targetPos = target.position;
+            }
+
+            return CalculateForce(targetPos);
         }
     }
 }
