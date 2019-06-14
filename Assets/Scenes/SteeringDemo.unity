@@ -208,7 +208,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!114 &120496567
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -242,7 +242,7 @@ MonoBehaviour:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 120496566}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 247550bad7c27472ba7f3716627e0f19, type: 3}
   m_Name: 
@@ -338,7 +338,7 @@ Transform:
   m_Children:
   - {fileID: 731213212}
   m_Father: {fileID: 0}
-  m_RootOrder: 6
+  m_RootOrder: 4
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &229336363
 GameObject:
@@ -461,7 +461,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 4
+  m_RootOrder: 5
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &671507462
 GameObject:
@@ -489,7 +489,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 5
+  m_RootOrder: 6
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &731213211
 GameObject:
@@ -586,7 +586,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!114 &863469925
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -710,7 +710,7 @@ MonoBehaviour:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 863469924}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: c34b424e1eea49459c804d9a0d30691a, type: 3}
   m_Name: 
@@ -793,11 +793,12 @@ GameObject:
   - component: {fileID: 1586271814}
   - component: {fileID: 1586271818}
   - component: {fileID: 1586271816}
+  - component: {fileID: 1586271817}
   - component: {fileID: 1586271815}
   - component: {fileID: 1586271819}
   - component: {fileID: 1586271820}
   - component: {fileID: 1586271821}
-  - component: {fileID: 1586271817}
+  - component: {fileID: 1586271822}
   m_Layer: 0
   m_Name: Boid_1
   m_TagString: Untagged
@@ -844,8 +845,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 30ca279ca8674a7fbab27352181206ab, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  maxSpeed: 12
-  maxForce: 10
+  maxSpeed: 10
+  maxForce: 8
   maxRotation: 180
 --- !u!114 &1586271817
 MonoBehaviour:
@@ -915,13 +916,28 @@ MonoBehaviour:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 1586271813}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: d25bcaee9cc2743ce88fe24568115458, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   multiplier: 1
   target: {fileID: 863469931}
+--- !u!114 &1586271822
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1586271813}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f271232cbb194eed8da27508de0989aa, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  multiplier: 1
+  wanderRadius: 3
+  wanderDistance: 12
+  wanderJitter: 0.02
 --- !u!1 &1801525616
 GameObject:
   m_ObjectHideFlags: 0
