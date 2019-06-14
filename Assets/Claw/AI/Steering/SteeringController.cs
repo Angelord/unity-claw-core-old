@@ -1,18 +1,39 @@
+using System.Collections.Generic;
 using UnityEngine;
 
 namespace Claw.AI.Steering {
-    [RequireComponent(typeof(Rigidbody2D), typeof(SteerableObject))]
+    [RequireComponent(typeof(Rigidbody2D))]
     public class SteeringController : MonoBehaviour {
 
-        private SteerableObject steerable;
+        [SerializeField] private float maxSpeed = 12.0f;
+        [SerializeField] private float maxForce = 10.0f;
+        [SerializeField] private float maxRotation = 20.0f; 
         private Rigidbody2D rBody;
-        private SteeringBehaviour[] behaviours;
-
+        private List<SteeringBehaviour> behaviours;
         private Vector2 accumForce;
+
+        public float MaxSpeed { get { return maxSpeed; } }
+        public float MaxForce { get { return maxForce; } }
+        public float MaxRotation { get { return maxRotation; } }
+
+        public T AddBehaviour<T>(int priority = 0) where T : SteeringBehaviour {
+            T newBehaviour = gameObject.AddComponent<T>();
+
+            if (priority < 0) { priority = 0; }
+            else if (priority > behaviours.Count) { priority = behaviours.Count; }
+
+            behaviours.Insert(priority, newBehaviour);
+            newBehaviour.Initialize();
+            return newBehaviour;
+        }
+
         private void Start() {
-            steerable = GetComponent<SteerableObject>();
             rBody = GetComponent<Rigidbody2D>();
-            behaviours = GetComponents<SteeringBehaviour>();
+            //TODO : Check if order returned is order in inspector!!!
+            behaviours = new List<SteeringBehaviour>(GetComponents<SteeringBehaviour>());
+            foreach (var behaviour in behaviours) {
+                behaviour.Initialize();
+            }
         }
 
         private void FixedUpdate() {
@@ -32,11 +53,17 @@ namespace Claw.AI.Steering {
             rBody.AddForce(accumForce, ForceMode2D.Impulse);
         }
 
+        private void Update() {
+            if (rBody.velocity.sqrMagnitude > 0.00001f) {
+                transform.rotation = Quaternion.LookRotation(Vector3.forward, rBody.velocity);
+            }
+        }
+        
         private bool AccumulateForce(Vector2 toAdd) {
             
             float magCurrent = accumForce.magnitude;
 
-            float magRemaining = steerable.MaxForce - magCurrent;
+            float magRemaining = maxForce - magCurrent;
             if (magRemaining <= 0.0f) { return false; }
 
             float magToAdd = toAdd.magnitude;

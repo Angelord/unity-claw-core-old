@@ -21,7 +21,7 @@ namespace Claw.AI.Steering {
 
                 float speed = distance / decceleration;
 
-                speed = Mathf.Min(speed, Steerable.MaxSpeed);
+                speed = Mathf.Min(speed, Controller.MaxSpeed);
 
                 Vector2 desiredVel = (toTarget / distance) * speed;
 

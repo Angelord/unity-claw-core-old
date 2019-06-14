@@ -16,7 +16,7 @@ namespace Claw.AI.Steering {
 			}
 		}
 
-		protected override void OnStart() {
+		protected override void OnInitialize() {
 			PanicDistance = panicDistance;	
 		}
 
@@ -30,7 +30,7 @@ namespace Claw.AI.Steering {
 				return Vector2.zero;
 			}
 
-			Vector2 desiredVel = ((Vector2)transform.position - targetPos).normalized * Steerable.MaxSpeed;
+			Vector2 desiredVel = ((Vector2)transform.position - targetPos).normalized * Controller.MaxSpeed;
 
 			return (desiredVel - Rigidbody.velocity);
 		}

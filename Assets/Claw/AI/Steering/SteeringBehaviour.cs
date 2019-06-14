@@ -8,16 +8,16 @@ namespace Claw.AI.Steering {
 
         [SerializeField] private float multiplier = 1.0f;
         private Rigidbody2D rBody;
-        private SteerableObject steerable;
+        private SteeringController controller;
         
         public float Multiplier { get { return multiplier; } set { multiplier = value; } }
         protected Rigidbody2D Rigidbody { get { return rBody; } }
-        protected SteerableObject Steerable { get { return steerable; } }
+        protected SteeringController Controller { get { return controller; } }
 
-        private void Start() {
+        public void Initialize() {
             rBody = GetComponent<Rigidbody2D>();
-            steerable = GetComponent<SteerableObject>();
-            OnStart();
+            controller = GetComponent<SteeringController>();
+            OnInitialize();
         }
         
         public Vector2 CalculateForce() {
@@ -25,7 +25,10 @@ namespace Claw.AI.Steering {
         }
 
         protected abstract Vector2 DoForceCalculation();
+        
+        protected virtual void OnInitialize() { }
 
-        protected virtual void OnStart() { }
+        //Needed so we can set [enabled] in the inspector
+        private void Update() { }
     }
 }
