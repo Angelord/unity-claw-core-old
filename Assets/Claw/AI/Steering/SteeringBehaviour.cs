@@ -10,7 +10,6 @@ namespace Claw.AI.Steering {
         private Rigidbody2D rBody;
         private SteeringController controller;
         
-        public float Multiplier { get { return multiplier; } set { multiplier = value; } }
         protected Rigidbody2D Rigidbody { get { return rBody; } }
         protected SteeringController Controller { get { return controller; } }
 
