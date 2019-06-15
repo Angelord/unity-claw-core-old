@@ -19,6 +19,10 @@ namespace Claw.AI.Steering {
 
         protected override Vector2 DoForceCalculation() {
 
+            if (path2D == null) {
+                return Vector2.zero;
+            }
+
             float speedPerFrame = Controller.MaxSpeed * Time.fixedDeltaTime;
             if (!finished && Vector2.Distance(transform.position, path2D[curWaypoint]) <= speedPerFrame) {
                 curWaypoint = (curWaypoint + 1) % path2D.Length;

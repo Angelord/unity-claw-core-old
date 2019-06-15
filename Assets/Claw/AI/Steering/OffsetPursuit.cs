@@ -13,6 +13,10 @@ namespace Claw.AI.Steering {
 
 		protected override Vector2 DoForceCalculation() {
 
+			if (leader == null) {
+				return Vector2.zero;
+			}
+
 			Vector2 worldOffsetPos = leader.transform.localToWorldMatrix.MultiplyPoint(offsetPos);
 			Vector2 toOffset = worldOffsetPos - (Vector2)transform.position;
 			

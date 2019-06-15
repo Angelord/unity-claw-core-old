@@ -14,7 +14,7 @@ namespace Claw.AI.Steering {
         };
         
         [SerializeField] private string obstacleLayer = "Obstacles";
-        [SerializeField] private float feelerLength;
+        [SerializeField] private float feelerLength = 1.0f;
         private RaycastHit2D[] feelerHits = new RaycastHit2D[FEELERS.Length];    //left, middle, right
 
         protected override Vector2 DoForceCalculation() {
@@ -36,8 +36,6 @@ namespace Claw.AI.Steering {
             }
 
             steeringDir /= hitCount;
-
-            Vector2 desiredVel = steeringDir * Rigidbody.velocity.magnitude;
             
             return steeringDir * Controller.MaxForce;
         }
@@ -59,6 +57,8 @@ namespace Claw.AI.Steering {
         }
         
         private void OnDrawGizmosSelected() {
+            if (!enabled) { return; }
+
             Matrix4x4 rotationMatrix = Matrix4x4.TRS(transform.position, transform.rotation, transform.lossyScale);
             Gizmos.matrix = rotationMatrix;
 

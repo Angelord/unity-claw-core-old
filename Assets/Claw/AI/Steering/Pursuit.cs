@@ -12,7 +12,11 @@ namespace Claw.AI.Steering {
 		}
 
 		protected override Vector2 DoForceCalculation() {
-			
+
+			if (target == null) {
+				return Vector2.zero;
+			}
+
 			Vector2 toTarget = target.transform.position - transform.position;
 
 			float relativeHeading = Vector2.Dot(transform.up, target.transform.up);

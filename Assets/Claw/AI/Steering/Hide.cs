@@ -21,6 +21,10 @@ namespace Claw.AI.Steering {
 
         protected override Vector2 DoForceCalculation() {
 
+            if (pursuer == null) {
+                return Vector2.zero;
+            }
+
             int layerMask = LayerMask.GetMask(obstacleLayer);
             int obstacleCount = Physics2D.OverlapCircleNonAlloc(transform.position, maxHideDistance, obstaclesInRange, layerMask);
             
@@ -56,6 +60,8 @@ namespace Claw.AI.Steering {
         }
 
         private void OnDrawGizmosSelected() {
+            if (!enabled) { return; }
+
             Gizmos.color = Color.grey;
             Gizmos.DrawWireSphere(transform.position, maxHideDistance);
         }

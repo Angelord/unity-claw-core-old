@@ -15,6 +15,11 @@ namespace Claw.AI.Steering {
         }
         
         protected override Vector2 DoForceCalculation() {
+
+            if (pursuer == null) {
+                return Vector2.zero;
+            }
+
             Vector2 toPursuer = pursuer.transform.position - transform.position;
 
             float lookAheadTime = toPursuer.magnitude / 

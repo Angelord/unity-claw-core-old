@@ -4,7 +4,6 @@ namespace Claw.AI.Steering {
     public class Arrive : SteeringBehaviour {
 
         [SerializeField] private Transform target;
-        [SerializeField] private Vector2 targetPos;
         [SerializeField] private float decceleration = 1.0f;
 
         public Vector2 CalculateForce(Vector2 targetPos) {
@@ -29,11 +28,11 @@ namespace Claw.AI.Steering {
 
         protected override Vector2 DoForceCalculation() {
 
-            if (target != null) {
-                targetPos = target.position;
+            if (target == null) {
+                return Vector2.zero;
             }
 
-            return CalculateForce(targetPos);
+            return CalculateForce(target.position);
         }
     }
 }

@@ -5,7 +5,6 @@ using Random = UnityEngine.Random;
 namespace Claw.AI.Steering {
     public class Wander : SteeringBehaviour {
 
-
         [SerializeField] private float wanderRadius = 3.0f;
         [SerializeField] private float wanderDistance = 1.0f;
         [SerializeField] private float wanderJitter = 0.5f;

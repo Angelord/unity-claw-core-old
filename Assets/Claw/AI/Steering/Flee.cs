@@ -4,7 +4,6 @@ namespace Claw.AI.Steering {
 	public class Flee : SteeringBehaviour {
 
 		[SerializeField] private Transform target;
-		[SerializeField] private Vector2 targetPos;
 		[SerializeField] private float panicDistance = 5.0f;
 		private float panicDistanceSq;
 		
@@ -33,11 +32,11 @@ namespace Claw.AI.Steering {
 
 		protected override Vector2 DoForceCalculation() {
 			
-			if (target != null) {
-				targetPos = target.position;
+			if (target == null) {
+				return Vector2.zero;
 			}
 
-			return CalculateForce(targetPos);
+			return CalculateForce(target.position);
 		}
 	}
 }
