@@ -1,5 +1,4 @@
 Steering Behaviours
-- Remove targetPos in Seek, Flee, etc...
 - Group behaviours
 
 Reusable Pathfinding
