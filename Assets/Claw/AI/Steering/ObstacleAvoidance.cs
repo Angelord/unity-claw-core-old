@@ -48,6 +48,8 @@ namespace Claw.AI.Steering {
         }
         
         private void OnDrawGizmosSelected() {
+            if (!Application.isPlaying) { return; }
+
             Matrix4x4 rotationMatrix = Matrix4x4.TRS(transform.position, transform.rotation, transform.lossyScale);
             Gizmos.matrix = rotationMatrix;
             Gizmos.color = hitInfo ? Color.red : Color.yellow;
