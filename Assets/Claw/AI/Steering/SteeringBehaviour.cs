@@ -33,7 +33,7 @@ namespace Claw.AI.Steering {
             behaviour.enabled = false;
             return behaviour;
         }
-
+        
         //Needed so we can set [enabled] in the inspector
         private void Update() { }
     }

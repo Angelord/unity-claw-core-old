@@ -21,9 +21,14 @@ namespace Claw.AI.Steering {
             Vector2 steeringDir = Vector2.zero;
             int hitCount = 0;
             float scaledLength = GetSpeedScaledLength();
-            
+            int layerMask = LayerMask.GetMask(obstacleLayer);
+            Matrix4x4 worldMat = transform.localToWorldMatrix;
+
             for (int i = 0; i < FEELERS.Length; i++) {
-                RaycastHit2D hit = feelerHits[i];
+                
+                Vector2 feelerDir = worldMat.MultiplyVector(FEELERS[i]);
+                RaycastHit2D hit = Physics2D.Raycast(transform.position, feelerDir, scaledLength, layerMask);
+                
                 if (!hit) { continue; }
                 hitCount++;
                 
@@ -40,16 +45,6 @@ namespace Claw.AI.Steering {
             return steeringDir * Controller.MaxForce;
         }
 
-        private void FixedUpdate() {
-            int layerMask = LayerMask.GetMask(obstacleLayer);
-            Matrix4x4 worldMat = transform.localToWorldMatrix;
-            float scaledLength = GetSpeedScaledLength();
-            for (int i = 0; i < FEELERS.Length; i++) {
-                Vector2 feelerDir = worldMat.MultiplyVector(FEELERS[i]);
-                feelerHits[i] = Physics2D.Raycast(transform.position, feelerDir, scaledLength, layerMask);
-            }
-        }
-        
         //Return feeler length scaled based on the boid's speed.
         private float GetSpeedScaledLength() {
             return Mathf.Clamp(Rigidbody.velocity.magnitude / Controller.MaxSpeed,

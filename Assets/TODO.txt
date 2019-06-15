@@ -1,5 +1,6 @@
 Steering Behaviours
 - Group behaviours
+    - Separation
 
 Reusable Pathfinding
 
