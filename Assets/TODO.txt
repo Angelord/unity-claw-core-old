@@ -1,6 +1,5 @@
 Steering Behaviours
-- Group behaviours
-    - Separation
+    - Test group behaviours.
 
 Reusable Pathfinding
 
