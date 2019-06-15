@@ -1,7 +1,5 @@
 Steering Behaviours
-- Hide. Only take the nearest obstacles into account
 - Path Following.
-- Offset pursuit.
 - Modify Obstacle avoidance to be more similar to wall avoidance
 - Remove targetPos in Seek, Flee, etc...
 
