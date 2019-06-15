@@ -7,11 +7,13 @@ namespace Claw.AI.Steering {
         [SerializeField] private float panicDistance = 5.0f;
         private Flee flee;
 
+        public Rigidbody2D Pursuer { get { return pursuer; } set { pursuer = value; } }
+
         protected override void OnInitialize() {
             flee = RequireBehaviour<Flee>();
             flee.PanicDistance = panicDistance;
         }
-
+        
         protected override Vector2 DoForceCalculation() {
             Vector2 toPursuer = pursuer.transform.position - transform.position;
 
