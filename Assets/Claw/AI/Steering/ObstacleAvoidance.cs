@@ -6,56 +6,76 @@ using UnityEngine;
 namespace Claw.AI.Steering {
     public class ObstacleAvoidance : SteeringBehaviour {
 
+        
+        private static readonly Vector2[] FEELERS = {
+            new Vector2(-0.6f, 0.4f),
+            new Vector2(0.0f, 1.0f),
+            new Vector2(0.6f, 0.4f)
+        };
+        
         [SerializeField] private string obstacleLayer = "Obstacles";
-        [SerializeField] private float maxSeeingDist = 6.0f;
-        [SerializeField] private float avoidanceWidth = 4.0f;
-        [SerializeField] private float breakingWeight = 0.1f;
-        private RaycastHit2D hitInfo;
-        private bool hit;
-
+        [SerializeField] private float feelerLength;
+        private RaycastHit2D[] feelerHits = new RaycastHit2D[FEELERS.Length];    //left, middle, right
 
         protected override Vector2 DoForceCalculation() {
-            if (hitInfo) {
-                //The closer the obstacle is, the greater the steering force should be
-                float multiplier = 1.0f + hitInfo.distance / GetSeeingDist();
-
-                Vector2 steeringDir = hitInfo.point - (Vector2)hitInfo.transform.position;
-                steeringDir.Normalize();
-                steeringDir *= multiplier;
-
-                Vector2 breakingDir = (Vector2)transform.position - hitInfo.point;
-                breakingDir.Normalize();
-                breakingDir *= breakingWeight * multiplier;
-
-                steeringDir += breakingDir;
-
+            Vector2 steeringDir = Vector2.zero;
+            int hitCount = 0;
+            float scaledLength = GetSpeedScaledLength();
+            
+            for (int i = 0; i < FEELERS.Length; i++) {
+                RaycastHit2D hit = feelerHits[i];
+                if (!hit) { continue; }
+                hitCount++;
                 
-                return (steeringDir - Rigidbody.velocity);
+                float penetrationDepth = Mathf.Clamp(1.0f - hit.distance / scaledLength, 0.0f, 1.0f);
+                Debug.Log("Depth " + penetrationDepth);
+                steeringDir += hit.normal * penetrationDepth;
             }
-         
-            return Vector2.zero;
+
+            if (hitCount == 0) {
+                return Vector2.zero;
+            }
+
+            steeringDir /= hitCount;
+
+            Vector2 desiredVel = steeringDir * Rigidbody.velocity.magnitude;
+            
+            return steeringDir * Controller.MaxForce;
         }
 
         private void FixedUpdate() {
-            Vector2 boxSz = new Vector2(avoidanceWidth / 2.0f, avoidanceWidth / 2.0f);
             int layerMask = LayerMask.GetMask(obstacleLayer);
-            hitInfo = Physics2D.BoxCast(transform.position, boxSz, 0.0f, transform.up, GetSeeingDist(), layerMask);
+            Matrix4x4 worldMat = transform.localToWorldMatrix;
+            float scaledLength = GetSpeedScaledLength();
+            for (int i = 0; i < FEELERS.Length; i++) {
+                Vector2 feelerDir = worldMat.MultiplyVector(FEELERS[i]);
+                feelerHits[i] = Physics2D.Raycast(transform.position, feelerDir, scaledLength, layerMask);
+            }
         }
         
-        private float GetSeeingDist() {
+        //Return feeler length scaled based on the boid's speed.
+        private float GetSpeedScaledLength() {
             return Mathf.Clamp(Rigidbody.velocity.magnitude / Controller.MaxSpeed,
-                       0.0f, 1.0f) * maxSeeingDist;
+                       0.0f, 1.0f) * feelerLength;
         }
         
         private void OnDrawGizmosSelected() {
-            if (!Application.isPlaying) { return; }
-
             Matrix4x4 rotationMatrix = Matrix4x4.TRS(transform.position, transform.rotation, transform.lossyScale);
             Gizmos.matrix = rotationMatrix;
-            Gizmos.color = hitInfo ? Color.red : Color.yellow;
-            float seeingDist = GetSeeingDist();
-            Vector3 cubeSize = new Vector3(avoidanceWidth, seeingDist, 1.0f);
-            Gizmos.DrawWireCube (Vector2.up * seeingDist / 2, cubeSize);
+
+            if (!Application.isPlaying) {
+                Gizmos.color = Color.yellow;
+                for (int i = 0; i < FEELERS.Length; i++) {
+                    Gizmos.DrawLine(Vector2.zero, FEELERS[i] * feelerLength);
+                }
+            }
+            else {
+                float scaledLength = GetSpeedScaledLength();
+                for (int i = 0; i < FEELERS.Length; i++) {
+                    Gizmos.color = feelerHits[i] ? Color.red : Color.yellow;
+                    Gizmos.DrawLine(Vector2.zero, FEELERS[i] * scaledLength);
+                }
+            }
         }
     }
 }

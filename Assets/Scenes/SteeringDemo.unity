@@ -570,8 +570,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   multiplier: 1
   obstacleLayer: Obstacles
-  maxSeeingDist: 6
-  avoidanceWidth: 1.3
+  feelerLength: 0
   breakingWeight: 0.5
 --- !u!114 &315969626
 MonoBehaviour:
@@ -1566,14 +1565,14 @@ Transform:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 1586271813}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -8.1, y: -8.6, z: 0}
+  m_LocalRotation: {x: -0, y: -0, z: 0.08048129, w: 0.99675614}
+  m_LocalPosition: {x: -10.07, y: -8.15, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 82554859}
   m_Father: {fileID: 0}
   m_RootOrder: 2
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 9.232}
 --- !u!114 &1586271815
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1683,7 +1682,7 @@ MonoBehaviour:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 1586271813}
-  m_Enabled: 0
+  m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: f271232cbb194eed8da27508de0989aa, type: 3}
   m_Name: 
@@ -1698,15 +1697,14 @@ MonoBehaviour:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 1586271813}
-  m_Enabled: 0
+  m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 1e0f90852f9a456eaedfffdc138c7a3f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   multiplier: 1
   obstacleLayer: Obstacles
-  maxSeeingDist: 6
-  avoidanceWidth: 1.65
+  feelerLength: 5
   breakingWeight: 0.5
 --- !u!114 &1586271824
 MonoBehaviour:
@@ -1714,7 +1712,7 @@ MonoBehaviour:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 1586271813}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 3326e29e4e784ff6926f6554fc02e669, type: 3}
   m_Name: 
