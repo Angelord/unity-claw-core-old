@@ -30,17 +30,18 @@ namespace Claw.AI.Steering {
             
             float distanceToNearest = float.MaxValue;
             Vector2 nearest = Vector2.zero;
+            bool validPosExists = false;
             for (int i = 0; i < obstacleCount; i++) {
                 Vector2 hidePos = GetHidingPosition(obstaclesInRange[i]);
                 float distance = Vector2.Distance(transform.position, hidePos);
                 if (distance < distanceToNearest) {
                     distanceToNearest = distance;
                     nearest = hidePos;
+                    validPosExists = true;
                 }
             }
             
-            //HACK : Implement proper float comparison
-            if (distanceToNearest == float.MaxValue) { 
+            if (validPosExists) { 
                 return evade.CalculateForce();
             }
             
