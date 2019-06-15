@@ -1,3 +1,4 @@
+using System;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -37,7 +38,6 @@ namespace Claw.AI.Steering {
 
         private void Start() {
             rBody = GetComponent<Rigidbody2D>();
-            //TODO : Check if order returned is order in inspector!!!
             behaviours = new List<SteeringBehaviour>(GetComponents<SteeringBehaviour>());
             foreach (var behaviour in behaviours) {
                 behaviour.Initialize();
