@@ -26,7 +26,7 @@ namespace Claw.AI.Steering {
             }
 
             int layerMask = LayerMask.GetMask(obstacleLayer);
-            int obstacleCount = Physics2D.OverlapCircleNonAlloc(transform.position, maxHideDistance, obstaclesInRange, layerMask);
+            int obstacleCount = GetNearbyObjects(maxHideDistance, obstaclesInRange, layerMask);
             
             float distanceToNearest = float.MaxValue;
             Vector2 nearest = Vector2.zero;

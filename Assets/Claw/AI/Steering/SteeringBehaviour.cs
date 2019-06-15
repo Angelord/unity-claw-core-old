@@ -33,7 +33,11 @@ namespace Claw.AI.Steering {
             behaviour.enabled = false;
             return behaviour;
         }
-        
+
+        protected int GetNearbyObjects(float radius, Collider2D[] results, int layerMask) {
+            return Physics2D.OverlapCircleNonAlloc(transform.position, radius, results, layerMask);
+        }
+
         //Needed so we can set [enabled] in the inspector
         private void Update() { }
     }
