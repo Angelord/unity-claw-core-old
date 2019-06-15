@@ -28,7 +28,6 @@ namespace Claw.AI.Steering {
                 hitCount++;
                 
                 float penetrationDepth = Mathf.Clamp(1.0f - hit.distance / scaledLength, 0.0f, 1.0f);
-                Debug.Log("Depth " + penetrationDepth);
                 steeringDir += hit.normal * penetrationDepth;
             }
 
