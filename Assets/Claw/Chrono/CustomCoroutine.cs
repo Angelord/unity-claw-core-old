@@ -2,52 +2,64 @@
 using System.Collections;
 
 namespace Claw.Chrono {
-    public class CustomCoroutine : MonoBehaviour {
-        private static CustomCoroutine instance;
+	public class CustomCoroutine : MonoBehaviour {
 
-        private static void TryCreateInstance() {
-            if (instance == null) {
-                instance = (new GameObject("CustomCoroutineRunner")).AddComponent<CustomCoroutine>();
-            }
-        }
+		private static CustomCoroutine instance;
+		
+		private static void TryCreateInstance() {
+			if (instance == null) {
+				instance = (new GameObject("CustomCoroutineRunner")).AddComponent<CustomCoroutine>();
+			}
+		}
 
-        public static void WaitOnConditionThenExecute(System.Func<bool> condition, System.Action action) {
-            TryCreateInstance();
-            instance.StartWaitOnConditionThenExecute(condition, action);
-        }
+		private void Start() {
+			DontDestroyOnLoad(this.gameObject);
+		}
 
-        public static void WaitThenExecute(float wait, System.Action action, bool unscaledTime = false) {
-            TryCreateInstance();
-            instance.StartWaitThenExecute(wait, action, unscaledTime);
-        }
+		public static void Start(IEnumerator coroutine) {
+			TryCreateInstance();
+			instance.StartCoroutine(coroutine);
+		}
 
-        private void StartWaitOnConditionThenExecute(System.Func<bool> condition, System.Action action) {
-            StartCoroutine(DoWaitOnConditionThenExecute(condition, action));
-        }
+		public static void WaitOneFrameThenExecute(Action action) {
+			TryCreateInstance();
+			instance.StartCoroutine(instance.DoWaitOneFrameThenExecute(action));
+		}
 
-        private void StartWaitThenExecute(float wait, System.Action action, bool unscaledTime = false) {
-            StartCoroutine(DoWaitThenExecute(wait, action, unscaledTime));
-        }
+		public static void WaitOnConditionThenExecute(Func<bool> condition, Action action) {
+			TryCreateInstance();
+			instance.StartCoroutine(instance.DoWaitOnConditionThenExecute(condition, action));
+		}
 
-        IEnumerator DoWaitOnConditionThenExecute(System.Func<bool> condition, System.Action action) {
-            yield return new WaitUntil(() => condition());
-            action();
-        }
+		public static void WaitThenExecute(float wait, Action action, bool unscaledTime = false) {
+			TryCreateInstance();
+			instance.StartCoroutine(instance.DoWaitThenExecute(wait, action, unscaledTime));
+		}
 
-        IEnumerator DoWaitThenExecute(float wait, System.Action action, bool unscaledTime = false) {
-            if (wait <= 0f) {
-                yield return new WaitForEndOfFrame();
-            }
-            else {
-                if (unscaledTime) {
-                    yield return new WaitForSecondsRealtime(wait);
-                }
-                else {
-                    yield return new WaitForSeconds(wait);
-                }
-            }
+		IEnumerator DoWaitOneFrameThenExecute(Action action) {
+			yield return 0;
+			action();
+		}
 
-            action();
-        }
-    }
+		IEnumerator DoWaitOnConditionThenExecute(Func<bool> condition, Action action) {
+			yield return new WaitUntil(condition);
+			action();
+		}
+		
+		IEnumerator DoWaitThenExecute(float wait, Action action, bool unscaledTime = false) {
+			if (wait <= 0f) {
+				yield return new WaitForEndOfFrame();
+			}
+			else {
+				if (unscaledTime) {
+					yield return new WaitForSecondsRealtime(wait);
+				}
+				else {
+					yield return new WaitForSeconds(wait);
+				}
+			}
+
+			action();
+		}
+	}
 }
