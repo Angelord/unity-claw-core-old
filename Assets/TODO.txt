@@ -1,7 +1,0 @@
-Steering Behaviours
-    - Test group behaviours.
-
-Reusable Pathfinding
-
-Custom coroutines
-
