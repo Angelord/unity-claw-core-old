@@ -18,10 +18,10 @@ namespace Claw.Objects {
 
 			Vector2 pos = transform.position;
 
-			if (pos.x < bounds.XMin) { pos.x = bounds.XMax; }
-			if (pos.x > bounds.XMax) { pos.x = bounds.XMin; }
-			if (pos.y < bounds.YMin) { pos.y = bounds.YMax; }
-			if (pos.y > bounds.YMax) { pos.y = bounds.YMin; }
+			if (pos.x < bounds.Left) { pos.x = bounds.Right; }
+			if (pos.x > bounds.Right) { pos.x = bounds.Left; }
+			if (pos.y < bounds.Bottom) { pos.y = bounds.Top; }
+			if (pos.y > bounds.Top) { pos.y = bounds.Bottom; }
 			
 			transform.position = new Vector3(pos.x, pos.y, transform.position.z);
 		}
