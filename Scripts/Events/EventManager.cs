@@ -18,6 +18,10 @@ namespace Claw {
 
         private static EventManager instance;
 
+        private void Awake() {
+            DontDestroyOnLoad(this.gameObject);
+        }
+
         private static void TryCreateInstance() {
             if (instance == null) {
                 instance = (new GameObject("EventManagerRunner")).AddComponent<EventManager>();
