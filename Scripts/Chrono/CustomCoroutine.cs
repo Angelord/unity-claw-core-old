@@ -9,7 +9,7 @@ namespace Claw.Chrono {
 		
 		private static void TryCreateInstance() {
 			if (instance == null) {
-				instance = (new GameObject("CustomCoroutineRunner")).AddComponent<CustomCoroutine>();
+				instance = (new GameObject("Runner_CustomCoroutine")).AddComponent<CustomCoroutine>();
 			}
 		}
 
