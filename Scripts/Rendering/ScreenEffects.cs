@@ -1,5 +1,5 @@
 ﻿using System.Collections;
-using System.Collections.Generic;
+using Claw.Animation;
 using UnityEngine;
 
 namespace Claw.Rendering {
@@ -8,7 +8,7 @@ namespace Claw.Rendering {
 
 		private static ScreenEffects instance;
 
-		[SerializeField] private Material renderMat;
+		[SerializeField] private Material renderMat = default;
 		[SerializeField] [Range(0, 1)] private float startingAlpha = 0.0f;
 
 		private Jitterer jitterer;

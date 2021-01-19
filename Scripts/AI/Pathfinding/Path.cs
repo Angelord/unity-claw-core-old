@@ -1,33 +1,33 @@
-﻿using System.Collections.Generic;
-using System.Collections;
+﻿using System.Collections;
+using System.Collections.Generic;
 
 namespace Claw.AI.Pathfinding {
     
     public class Path<T> : IReadOnlyList<T> where T : PathfindingNode {
 
-        private readonly List<T> _nodes;
+        private readonly List<T> nodes;
 
-        public T Start => _nodes[0];
+        public T Start => nodes[0];
         
-        public T End => _nodes[_nodes.Count - 1];
+        public T End => nodes[nodes.Count - 1];
         
-        public int Length => _nodes == null ? 0 : _nodes.Count;
+        public int Length => nodes == null ? 0 : nodes.Count;
         
-        public bool Exists => _nodes != null;
+        public bool Exists => nodes != null;
         
-        public int Count => _nodes.Count;
+        public int Count => nodes.Count;
         
-        public T this[int index] => _nodes[index];
+        public T this[int index] => nodes[index];
         
         public static Path<T> Empty => new Path<T>();
 
-        public Path(List<T> nodes) { this._nodes = nodes; }
+        public Path(List<T> nodes) { this.nodes = nodes; }
 
-        public Path(T[] pathNodes) { this._nodes = new List<T>(pathNodes); }
+        public Path(T[] pathNodes) { this.nodes = new List<T>(pathNodes); }
         
         private Path() { }
         
-        public IEnumerator<T> GetEnumerator() { return _nodes.GetEnumerator(); }
+        public IEnumerator<T> GetEnumerator() { return nodes.GetEnumerator(); }
         
         IEnumerator IEnumerable.GetEnumerator() { return GetEnumerator(); }
     }

@@ -5,20 +5,20 @@ namespace Claw.AI.Pathfinding {
     
     public class Area<T> : IReadOnlyList<T> where T : PathfindingNode {
 
-        private readonly List<T> _area = null;
+        private readonly List<T> area = null;
         
-        public int Count => _area.Count;
+        public int Count => area.Count;
 
-        public T this[int index] => _area[index];
+        public T this[int index] => area[index];
         
-        public bool Contains(T pos) { return _area.Contains(pos); }
+        public bool Contains(T pos) { return area.Contains(pos); }
 
-        public IEnumerator<T> GetEnumerator() { return _area.GetEnumerator(); }
+        public IEnumerator<T> GetEnumerator() { return area.GetEnumerator(); }
 
-        IEnumerator IEnumerable.GetEnumerator() { return _area.GetEnumerator(); }
+        IEnumerator IEnumerable.GetEnumerator() { return area.GetEnumerator(); }
 
         public Area(List<T> area) {
-            _area = area;
+            this.area = area;
         }
     }
 }

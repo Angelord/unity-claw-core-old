@@ -1,11 +1,11 @@
-﻿using UnityEngine;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
+using UnityEngine;
 
 namespace Claw.AI.Pathfinding {
     
     public class AStar<T> where T : PathfindingNode {
         
-        private class NodeMeta<T> {
+        private class NodeMeta {
 
             public float HCost;
         
@@ -22,48 +22,48 @@ namespace Claw.AI.Pathfinding {
             }
         }
         
-        private readonly List<NodeMeta<T>> _closedList = new List<NodeMeta<T>>();
-        private readonly List<NodeMeta<T>> _openList = new List<NodeMeta<T>>();
-        private readonly Dictionary<T, NodeMeta<T>> _metaData = new Dictionary<T, NodeMeta<T>>();
+        private readonly List<NodeMeta> closedList = new List<NodeMeta>();
+        private readonly List<NodeMeta> openList = new List<NodeMeta>();
+        private readonly Dictionary<T, NodeMeta> metaData = new Dictionary<T, NodeMeta>();
         
-        private T _startNode;
-        private T _endNode;
-        private ITraverser<T> _traverser;
-        private NodeMeta<T> _current;
+        private T startNode;
+        private T endNode;
+        private ITraverser<T> traverser;
+        private NodeMeta current;
 
         public Path<T> GetPath(T startNode, T endNode, ITraverser<T> traverser) {
-            if(startNode == _endNode) {
+            if(startNode == this.endNode) {
                 return new Path<T>(new List<T>() { startNode });   
             }
 
-            _startNode = startNode;
-            _endNode = endNode;
-            _traverser = traverser;
+            this.startNode = startNode;
+            this.endNode = endNode;
+            this.traverser = traverser;
             
-            _closedList.Clear();
-            _openList.Clear();
+            closedList.Clear();
+            openList.Clear();
 
             var startNodeMeta = GetNodeMeta(startNode);
 
             startNodeMeta.GCost = 0.0f;
 
-            _openList.Add(startNodeMeta);
+            openList.Add(startNodeMeta);
 
             while (true) {
                 
-                if(_openList.Count == 0) {
+                if(openList.Count == 0) {
                     return Path<T>.Empty;  // No path exists
                 }
 
-                _current = _openList[_openList.Count - 1];
-                _openList.Remove(_current);
+                current = openList[openList.Count - 1];
+                openList.Remove(current);
 
-                if(_current.Node == endNode) {
+                if(current.Node == endNode) {
                     return Backtrack();    // Path discovered
                 }
                 
-                if(!_closedList.Contains(_current)) {
-                    _closedList.Add(_current);
+                if(!closedList.Contains(current)) {
+                    closedList.Add(current);
                     AddNeighboursToOpen();
                 }
             }
@@ -72,15 +72,15 @@ namespace Claw.AI.Pathfinding {
         private Path<T> Backtrack() {
             List<T> path = new List<T>();
 
-            while(_current.Node != _startNode) {
-                if(_traverser.AddToResult(_current.Node)) { 
-                    path.Add(_current.Node);
+            while(current.Node != startNode) {
+                if(traverser.AddToResult(current.Node)) { 
+                    path.Add(current.Node);
                 }
-                _current = GetNodeMeta(_current.Parent);
+                current = GetNodeMeta(current.Parent);
             }
 
-            if(_traverser.AddToResult(_current.Node)) {
-                path.Add(_startNode);
+            if(traverser.AddToResult(current.Node)) {
+                path.Add(startNode);
             }
 
             path.Reverse();
@@ -89,35 +89,35 @@ namespace Claw.AI.Pathfinding {
         }
 
         private void AddNeighboursToOpen() {
-            foreach(T neighbour in _current.Node.GetNeighbours()) {
+            foreach(T neighbour in current.Node.GetNeighbours()) {
                 AddToOpen(neighbour);
             }
 
-            _openList.Sort((a, b) => b.FCost.CompareTo(a.FCost));
+            openList.Sort((a, b) => b.FCost.CompareTo(a.FCost));
         }
 
         private void AddToOpen(T node) {
-            NodeMeta<T> target = GetNodeMeta(node);
-            if(_traverser.CanTraverse(node) || node == _endNode) {
-                float gCost = _current.GCost + _traverser.GetTraverseCost(_current.Node, node);
-                if (!_closedList.Contains(target) && !_openList.Contains(target)) {
-                    target.Parent = _current.Node;
-                    target.HCost = Vector3.Distance(node.Position, _endNode.Position);
+            NodeMeta target = GetNodeMeta(node);
+            if(traverser.CanTraverse(node) || node == endNode) {
+                float gCost = current.GCost + traverser.GetTraverseCost(current.Node, node);
+                if (!closedList.Contains(target) && !openList.Contains(target)) {
+                    target.Parent = current.Node;
+                    target.HCost = Vector3.Distance(node.Position, endNode.Position);
                     target.GCost = gCost;
-                    _openList.Add(target);
+                    openList.Add(target);
                 }
                 else if(target.GCost > gCost) {
-                    target.Parent = _current.Node;
+                    target.Parent = current.Node;
                     target.GCost = gCost;
                 }
             }
         }
 
-        private NodeMeta<T> GetNodeMeta(T node) {
-            NodeMeta<T> metaData = null;
-            if (!_metaData.TryGetValue(node, out metaData)) {
-                metaData = new NodeMeta<T>(node);
-                _metaData.Add(node, metaData);
+        private NodeMeta GetNodeMeta(T node) {
+            NodeMeta metaData = null;
+            if (!this.metaData.TryGetValue(node, out metaData)) {
+                metaData = new NodeMeta(node);
+                this.metaData.Add(node, metaData);
             }
 
             return metaData;

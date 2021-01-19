@@ -5,7 +5,7 @@ namespace Claw.AI.Steering {
 
         private const float MIN_SEEK_DIST = 0.1f;
         
-        [SerializeField] private VectorPath2D path2D;
+        [SerializeField] private VectorPath2D path2D = default;
         [SerializeField] private bool loop = true;
         private Seek seek;
         private Arrive arrive;

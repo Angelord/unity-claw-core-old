@@ -6,9 +6,9 @@ namespace Claw.Rendering.Materials {
     [RequireComponent(typeof(Renderer))]
     public class PerRendererMaterialOptions : MonoBehaviour {
 
-        [SerializeField] private List<MaterialProperty> _materialProperties = new List<MaterialProperty>();
-        private MaterialPropertyBlock _propertyBlock;
-        private Renderer _renderer;
+        [SerializeField] private List<MaterialProperty> materialProperties = new List<MaterialProperty>();
+        private MaterialPropertyBlock propertyBlock;
+        private new Renderer renderer;
 
         private void Start() {
             Initialize();
@@ -23,21 +23,21 @@ namespace Claw.Rendering.Materials {
         }
 
         private void Initialize() {
-            if(_renderer != null && _propertyBlock != null) return;
+            if(renderer != null && propertyBlock != null) return;
 
-            _renderer = GetComponent<Renderer>();
-            _propertyBlock = new MaterialPropertyBlock ();
+            renderer = GetComponent<Renderer>();
+            propertyBlock = new MaterialPropertyBlock ();
         }
 
         private void Update() {
             
-            foreach (var materialProperty in _materialProperties) {
+            foreach (var materialProperty in materialProperties) {
                 if (materialProperty == null) continue;
                 
-                materialProperty.Apply(_propertyBlock);
+                materialProperty.Apply(propertyBlock);
             }
             
-            _renderer.SetPropertyBlock (_propertyBlock);
+            renderer.SetPropertyBlock (propertyBlock);
         }
     }
 }

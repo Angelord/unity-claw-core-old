@@ -9,9 +9,9 @@ namespace Claw {
 
         public delegate void EventListener<T>(T gameEvent) where T : GameEvent;
 
-        private static Dictionary<System.Type, EventListener> listeners = new Dictionary<Type, EventListener>();
+        private static Dictionary<Type, EventListener> listeners = new Dictionary<Type, EventListener>();
 
-        private static Dictionary<System.Delegate, EventListener> listenerLookup =
+        private static Dictionary<Delegate, EventListener> listenerLookup =
             new Dictionary<Delegate, EventListener>();
 
         private static Queue<GameEvent> eventQueue = new Queue<GameEvent>();

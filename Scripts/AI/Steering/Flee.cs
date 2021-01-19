@@ -3,7 +3,7 @@
 namespace Claw.AI.Steering {
 	public class Flee : SteeringBehaviour {
 
-		[SerializeField] private Transform target;
+		[SerializeField] private Transform target = default;
 		[SerializeField] private float panicDistance = 5.0f;
 		private float panicDistanceSq;
 		

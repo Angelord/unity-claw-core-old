@@ -1,10 +1,9 @@
-using System;
 using UnityEngine;
 
 namespace Claw.AI.Steering {
     public class Hide : SteeringBehaviour {
 
-        [SerializeField] private Rigidbody2D pursuer;
+        [SerializeField] private Rigidbody2D pursuer = default;
         [SerializeField] private string obstacleLayer = "Obstacles";
         [SerializeField] private float maxHideDistance = 10.0f;
         [SerializeField] private float distanceFromBoundary = 1.0f;

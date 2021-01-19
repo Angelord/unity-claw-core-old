@@ -1,6 +1,4 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
+﻿using UnityEngine;
 
 namespace Claw.Objects {
 	public class RandomlyEnabled : MonoBehaviour {

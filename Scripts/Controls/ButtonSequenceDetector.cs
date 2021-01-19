@@ -5,7 +5,7 @@ namespace Claw.Controls {
     public class ButtonSequenceDetector : MonoBehaviour {
 
         [SerializeField] private bool sendEvent = true;
-        [SerializeField] private Sequence sequence;
+        [SerializeField] private Sequence sequence = default;
 
         private int nextBtn = 0;
         private float tStart = 0.0f;

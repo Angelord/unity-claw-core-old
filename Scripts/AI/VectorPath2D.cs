@@ -1,6 +1,4 @@
-﻿using System;
-using System.Collections;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using UnityEngine;
 
 namespace Claw.AI {
@@ -8,9 +6,10 @@ namespace Claw.AI {
 
 		[SerializeField] private List<Vector2> nodes = new List<Vector2>();
 
-		public int Length { get { return nodes.Count; } }
-		public Vector2 this[int key] { get { return nodes[key] + (Vector2)transform.position; } }
+		public int Length => nodes.Count;
 		
+		public Vector2 this[int key] => nodes[key] + (Vector2)transform.position;
+
 		public Vector2 GetNode(int index) {
 			return nodes[index] + (Vector2)transform.position;
 		}

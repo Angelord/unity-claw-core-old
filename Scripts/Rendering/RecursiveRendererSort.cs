@@ -1,11 +1,9 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
+﻿using UnityEngine;
 
 namespace Claw.Rendering {
     public class RecursiveRendererSort : MonoBehaviour {
 
-        [SerializeField] private int sortOrder;
+        [SerializeField] private int sortOrder = default;
 
         void Start() {
             ChangeSortingOrder(sortOrder);

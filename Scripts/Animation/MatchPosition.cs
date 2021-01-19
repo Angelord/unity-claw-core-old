@@ -1,29 +1,28 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
+﻿using UnityEngine;
 
-public class MatchPosition : MonoBehaviour 
-{
-    public Transform target;
-    public bool x = true;
-    public bool y = true;
-    public bool z = true;
-	public bool destroyIfTargetNull;
+namespace Claw.Animation {
+    /// <summary>
+    /// Follows a specified object's position on one or more axis.
+    /// </summary>
+    public class MatchPosition : MonoBehaviour {
+    
+        [SerializeField] private Transform target = default;
+        [SerializeField] private bool x = true;
+        [SerializeField] private bool y = true;
+        [SerializeField] private bool z = true;
 
-    void LateUpdate()
-    {
-		if (target != null)
-		{
-			Vector3 pos = new Vector3 (
-				              x ? target.transform.position.x : transform.position.x,
-				              y ? target.transform.position.y : transform.position.y,
-				              z ? target.transform.position.z : transform.position.z
-			              );
-            transform.position = pos;
+        void LateUpdate() {
+            if (target == null) { return; }
+            
+            Vector3 targetPos = target.transform.position;
+
+            Vector3 curPos = transform.position;
+                
+            transform.position = new Vector3(
+                x ? targetPos.x : curPos.x,
+                y ? targetPos.y : curPos.y,
+                z ? targetPos.z : curPos.z
+            );
         }
-		else if (destroyIfTargetNull)
-		{
-			Destroy (gameObject);
-		}
     }
 }

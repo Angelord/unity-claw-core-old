@@ -6,10 +6,12 @@ namespace Claw.AI.Steering {
     /// </summary>
     public class NeighbourAwareness : MonoBehaviour {
 
+        private const int NEIGHBOUR_COUNT_LIMIT = 16;
+        
         [SerializeField] private string neighbourLayer = "Boids";
         [SerializeField] private float visionRadius = 10.0f;
+        private readonly Collider2D[] neighbours = new Collider2D[16];
         private int neighbourCount;
-        private Collider2D[] neighbours;
 
         public int NeighbourCount { get { return neighbourCount; } }
         public Collider2D[] Neighbours { get { return neighbours; } }

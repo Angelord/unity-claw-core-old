@@ -4,14 +4,14 @@ namespace Claw.Chrono {
 	public class TimedBehaviour : MonoBehaviour {
 		
 		[Header("Timer Parameters")] 
-		[SerializeField] private float originalFrequency;
-		[SerializeField] private float volatility;
+		[SerializeField] private float originalFrequency = default;
+		[SerializeField] private float volatility = default;
 
 		private float timer;
 		private float frequency;
 		private bool paused;
 
-		public bool Paused { get { return paused; } set { paused = value; } }
+		public bool Paused { get => paused; set { paused = value; } }
 
 		public void AddDelay(float delay) {
 			timer -= delay;

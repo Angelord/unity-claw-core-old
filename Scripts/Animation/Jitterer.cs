@@ -1,33 +1,34 @@
 ﻿using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
-public class Jitterer : MonoBehaviour {
+namespace Claw.Animation {
+	public class Jitterer : MonoBehaviour {
 
-	[SerializeField] private float shakeMagnitude = 0.7f;
- 	[SerializeField] private float dampingSpeed = 1.0f;
-	[SerializeField] private float shakeFreq = 0.05f;
+		[SerializeField] private float shakeMagnitude = 0.7f;
+		[SerializeField] private float dampingSpeed = 1.0f;
+		[SerializeField] private float shakeFreq = 0.05f;
  
-	public void Jitter(float duration) {
-		StartCoroutine(DoShake(duration));
-	}
+		public void Jitter(float duration) {
+			StartCoroutine(DoShake(duration));
+		}
 
-	private IEnumerator DoShake(float duration) {
+		private IEnumerator DoShake(float duration) {
 		
-		Vector3 initialPos = transform.localPosition;
+			Vector3 initialPos = transform.localPosition;
 
-		float timeRemaining = duration;
+			float timeRemaining = duration;
 
-		do {
+			do {
 
-			transform.localPosition = initialPos + Random.insideUnitSphere * shakeMagnitude;
+				transform.localPosition = initialPos + Random.insideUnitSphere * shakeMagnitude;
 
-			timeRemaining -= shakeFreq * dampingSpeed;
+				timeRemaining -= shakeFreq * dampingSpeed;
 
-			yield return shakeFreq;
+				yield return shakeFreq;
 
-		} while(timeRemaining > 0);
+			} while(timeRemaining > 0);
 
-		transform.localPosition = initialPos;
+			transform.localPosition = initialPos;
+		}
 	}
 }

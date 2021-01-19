@@ -4,7 +4,7 @@ namespace Claw.AI.Pathfinding {
     
     public class SimpleFill<T> where T : PathfindingNode {
         
-        private class NodeMeta<T> {
+        private class NodeMeta {
             
             public int GCost;
         
@@ -13,36 +13,36 @@ namespace Claw.AI.Pathfinding {
             public NodeMeta(T node) { Node = node; }
         }
         
-        private readonly Dictionary<T, NodeMeta<T>> _fillData = new Dictionary<T, NodeMeta<T>>();
-        private readonly List<NodeMeta<T>> _fill = new List<NodeMeta<T>>();
-        private readonly List<NodeMeta<T>> _frontier = new List<NodeMeta<T>>();
+        private readonly Dictionary<T, NodeMeta> fillData = new Dictionary<T, NodeMeta>();
+        private readonly List<NodeMeta> fill = new List<NodeMeta>();
+        private readonly List<NodeMeta> frontier = new List<NodeMeta>();
 
-        private ITraverser<T> _traverser;
+        private ITraverser<T> traverser;
 
         public Area<T> GetFill(T center, int range, ITraverser<T> traverser) {
-            _traverser = traverser;
+            this.traverser = traverser;
 
-            _fill.Clear();
-            _frontier.Clear();
+            fill.Clear();
+            frontier.Clear();
             
-            NodeMeta<T> first = GetFillData(center);
+            NodeMeta first = GetFillData(center);
             first.GCost = 0;
             
-            _frontier.Add(GetFillData(center));
+            frontier.Add(GetFillData(center));
 
             for(int step = 0; step <= range; step++) {
-                for(int i = _frontier.Count - 1; i >= 0; i--) {
-                    if(_frontier[i].GCost <= step) {
-                        _fill.Add(_frontier[i]);
-                        AddNeighbours(_frontier[i]);
-                        _frontier.RemoveAt(i);
+                for(int i = frontier.Count - 1; i >= 0; i--) {
+                    if(frontier[i].GCost <= step) {
+                        fill.Add(frontier[i]);
+                        AddNeighbours(frontier[i]);
+                        frontier.RemoveAt(i);
                     }
                 }
             }
 
             List<T> fillResult = new List<T>();
-            for(int i = 0; i < _fill.Count; i++) {
-                T node = _fill[i].Node;
+            for(int i = 0; i < fill.Count; i++) {
+                T node = fill[i].Node;
                 if(traverser.CanEndOn(node) && traverser.AddToResult(node)) {
                     fillResult.Add(node);
                 }
@@ -51,23 +51,23 @@ namespace Claw.AI.Pathfinding {
             return new Area<T>(fillResult);
         }
 
-        private void AddNeighbours(NodeMeta<T> nodeMeta) {
+        private void AddNeighbours(NodeMeta nodeMeta) {
             foreach(var pathfindingNode in nodeMeta.Node.GetNeighbours()) {
                 var neighbour = (T) pathfindingNode;
                 
-                NodeMeta<T> neighNodeMeta = GetFillData(neighbour);
-                if(!_frontier.Contains(neighNodeMeta) && _traverser.CanTraverse(neighNodeMeta.Node)) {
-                    neighNodeMeta.GCost = nodeMeta.GCost + _traverser.GetTraverseCost(nodeMeta.Node, neighNodeMeta.Node);
-                    _frontier.Add(neighNodeMeta);
+                NodeMeta neighNodeMeta = GetFillData(neighbour);
+                if(!frontier.Contains(neighNodeMeta) && traverser.CanTraverse(neighNodeMeta.Node)) {
+                    neighNodeMeta.GCost = nodeMeta.GCost + traverser.GetTraverseCost(nodeMeta.Node, neighNodeMeta.Node);
+                    frontier.Add(neighNodeMeta);
                 }
             }
         }
 
-        private NodeMeta<T> GetFillData(T node) {
-            NodeMeta<T> nodeMeta = null;
-            if (!_fillData.TryGetValue(node, out nodeMeta)) {
-                nodeMeta = new NodeMeta<T>(node);
-                _fillData[node] = nodeMeta;
+        private NodeMeta GetFillData(T node) {
+            NodeMeta nodeMeta = null;
+            if (!fillData.TryGetValue(node, out nodeMeta)) {
+                nodeMeta = new NodeMeta(node);
+                fillData[node] = nodeMeta;
             }
 
             return nodeMeta;

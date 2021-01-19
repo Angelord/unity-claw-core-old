@@ -1,15 +1,16 @@
+using System;
 using UnityEngine;
 
 namespace Claw.Controls {
-	[System.Serializable]
+	[Serializable]
 	internal class Sequence {
-		[SerializeField] private string name;
-		[SerializeField] private float timeLimit;
-		[SerializeField] private string[] inputs;
+		[SerializeField] private string name = default;
+		[SerializeField] private float timeLimit = default;
+		[SerializeField] private string[] inputs = default;
 
-	    public string Name { get { return name; } }
-	    public float TimeLimit { get { return timeLimit; } }
-	    public int Length { get { return inputs.Length; } }
+	    public string Name => name;
+	    public float TimeLimit => timeLimit;
+	    public int Length => inputs.Length;
 
 	    public string GetInput(int index) {
 	        return inputs[index];

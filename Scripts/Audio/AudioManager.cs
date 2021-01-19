@@ -1,14 +1,15 @@
-using UnityEngine;
-using UnityEngine.Audio;
 using System.Collections;
 using System.Collections.Generic;
+using UnityEngine;
+using UnityEngine.Audio;
 
 namespace Claw.Audio {
     [RequireComponent(typeof(AudioSource))]
     public class AudioManager : MonoBehaviour {
         
-        [SerializeField] private string initialSong;
-        [SerializeField] private float loopOffset;
+        [SerializeField] private string initialSong = default;
+        [SerializeField] private float loopOffset = default;
+        
         private AudioSource source;
         private readonly List<AudioClip> sfx = new List<AudioClip>();
         private readonly List<AudioClip> loops = new List<AudioClip>();

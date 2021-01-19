@@ -3,8 +3,8 @@
 namespace Claw.AI.Steering {
 	public class OffsetPursuit : SteeringBehaviour {
 
-		[SerializeField] private Rigidbody2D leader;
-		[SerializeField] private Vector2 offsetPos; //In the leader's coordinate space
+		[SerializeField] private Rigidbody2D leader = default;
+		[SerializeField] private Vector2 offsetPos = default; //In the leader's coordinate space
 		private Arrive arrive;
 		
 		protected override void OnInitialize() {

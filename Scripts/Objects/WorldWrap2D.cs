@@ -1,12 +1,9 @@
-﻿using System;
-using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
+﻿using UnityEngine;
 
 namespace Claw.Objects {
 	public class WorldWrap2D : MonoBehaviour {
 
-		[SerializeField] private WorldBounds2D bounds;
+		[SerializeField] private WorldBounds2D bounds = default;
 
 		private void Start() {
 			if (bounds == null) {

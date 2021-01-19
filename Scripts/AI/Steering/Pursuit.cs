@@ -4,7 +4,7 @@ namespace Claw.AI.Steering {
 
 	public class Pursuit : SteeringBehaviour {
 
-		[SerializeField] private Rigidbody2D target;
+		[SerializeField] private Rigidbody2D target = default;
 		private Seek seek;
 		
 		protected override void OnInitialize() {

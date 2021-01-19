@@ -4,7 +4,7 @@ namespace Claw.Controls {
 
         private readonly string seqName;
 
-        public string SeqName { get { return seqName; } }
+        public string SeqName => seqName;
 
         public SequenceCompletedEvent(string seqName) {
             this.seqName = seqName;

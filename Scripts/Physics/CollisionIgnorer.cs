@@ -3,7 +3,7 @@
 namespace Claw.Physics {
 	public class CollisionIgnorer : MonoBehaviour {
 
-		[SerializeField] private string layerToIgnore;
+		[SerializeField] private string layerToIgnore = default;
 
 		private void OnCollisionEnter(Collision collision) {
 			if (collision.gameObject.layer == LayerMask.NameToLayer(layerToIgnore)) {

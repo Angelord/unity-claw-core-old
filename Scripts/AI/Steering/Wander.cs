@@ -1,6 +1,4 @@
-using System;
 using UnityEngine;
-using Random = UnityEngine.Random;
 
 namespace Claw.AI.Steering {
     public class Wander : SteeringBehaviour {

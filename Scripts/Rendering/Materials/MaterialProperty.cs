@@ -3,9 +3,9 @@
 namespace Claw.Rendering.Materials {
 	public abstract class MaterialProperty : ScriptableObject {
 
-		[SerializeField] private string _identifier;
+		[SerializeField] private string identifier = default;
 
-		protected string Identifier => _identifier;
+		protected string Identifier => identifier;
 
 		public abstract void Apply(MaterialPropertyBlock propertyBlock);
 	}
