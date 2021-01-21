@@ -1,4 +1,6 @@
 ﻿
+using Claw.Events;
+
 namespace Claw.Controls {
     public class SequenceCompletedEvent : GameEvent {
 
