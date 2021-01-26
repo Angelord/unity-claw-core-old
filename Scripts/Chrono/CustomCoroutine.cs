@@ -42,6 +42,11 @@ namespace Claw.Chrono {
 			instance.StartCoroutine(instance.DoWaitThenExecute(wait, action, unscaledTime));
 		}
 
+		public static void LerpOverTime(float duration, float fromVal, float toVal, Action<float> callback) {
+			TryCreateInstance();
+			instance.StartCoroutine(instance.DoLerpOverTime(duration, fromVal, toVal, callback));
+		}
+
 		IEnumerator DoWaitOneFrameThenExecute(Action action) {
 			yield return 0;
 			action();
@@ -66,6 +71,20 @@ namespace Claw.Chrono {
 			}
 
 			action();
+		}
+
+		IEnumerator DoLerpOverTime(float duration, float fromVal, float toVal, Action<float> callback) {
+
+			float timeElapsed = 0.0f;
+
+			while (timeElapsed < duration) {
+
+				yield return 0;
+
+				timeElapsed += Time.deltaTime;
+
+				callback(Mathf.Lerp(fromVal, toVal, timeElapsed / duration));
+			}
 		}
 	}
 }
