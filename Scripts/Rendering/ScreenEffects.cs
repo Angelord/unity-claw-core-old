@@ -3,20 +3,15 @@ using Claw.Animation;
 using UnityEngine;
 
 namespace Claw.Rendering {
-	[RequireComponent(typeof(Jitterer))]
 	public class ScreenEffects : MonoBehaviour {
 
 		private static ScreenEffects instance;
 
-		[SerializeField] private Material renderMat = default;
+		[SerializeField] private Color fadeColor = Color.white;
+		
 		[SerializeField] [Range(0, 1)] private float startingAlpha = 0.0f;
 
-		private Jitterer jitterer;
 		private Texture2D overlay;
-
-		public static void Jitter(float duration = 0.8f) {
-			instance.jitterer.Jitter(duration);
-		}
 
 		public static void FadeOut(float duration) {
 			instance.StartCoroutine(instance.DoFade(true, duration));
@@ -30,10 +25,8 @@ namespace Claw.Rendering {
 			instance = this;
 
 			overlay = new Texture2D(1, 1);
-			overlay.SetPixel(0, 0, new Color(0, 0, 0, startingAlpha));
+			overlay.SetPixel(0, 0, new Color(fadeColor.r, fadeColor.g, fadeColor.b, startingAlpha));
 			overlay.Apply();
-
-			jitterer = GetComponent<Jitterer>();
 		}
 
 		private void OnGUI() {
@@ -44,22 +37,13 @@ namespace Claw.Rendering {
 			instance = null;
 		}
 
-		private void OnRenderImage(RenderTexture source, RenderTexture destination) {
-			if (renderMat != null) {
-				Graphics.Blit(source, destination, renderMat);
-			}
-			else {
-				Graphics.Blit(source, destination);
-			}
-		}
-
 		private IEnumerator DoFade(bool fadeOut, float duration) {
 			float timeRemaining = duration;
 
 			while (timeRemaining >= 0.0f) {
 
 				float alpha = fadeOut ? (1.0f - timeRemaining / duration) : timeRemaining / duration;
-				overlay.SetPixel(0, 0, new Color(0, 0, 0, alpha));
+				overlay.SetPixel(0, 0, new Color(fadeColor.r, fadeColor.g, fadeColor.b, alpha));
 				overlay.Apply();
 
 				timeRemaining -= Time.deltaTime;
