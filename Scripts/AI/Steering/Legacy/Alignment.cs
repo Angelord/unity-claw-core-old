@@ -1,8 +1,8 @@
 using UnityEngine;
 
-namespace Claw.AI.Steering {
+namespace Claw.AI.Steering.Legacy {
     [RequireComponent(typeof(NeighbourAwareness))]
-    public class Separation : SteeringBehaviour {
+    public class Alignment : SteeringBehaviour {
 
         private NeighbourAwareness neighbours;
 
@@ -12,17 +12,19 @@ namespace Claw.AI.Steering {
 
         protected override Vector2 DoForceCalculation() {
 
-            Vector2 steeringForce = Vector2.zero;
+            Vector2 avgHeading = Vector2.zero;
             
             for (int i = 0; i < neighbours.NeighbourCount; i++) {
-                
                 Collider2D neighbour = neighbours.GetNeighbour(i);
-
-                Vector2 toNeigh = transform.position - neighbour.transform.position;
-                steeringForce += toNeigh.normalized / toNeigh.magnitude;
+                avgHeading += (Vector2)neighbour.transform.up;
             }
 
-            return steeringForce;
+            if (neighbours.NeighbourCount > 0) {
+                avgHeading /= neighbours.NeighbourCount;
+                avgHeading -= (Vector2)transform.up;
+            }
+
+            return avgHeading;
         }
 
     }

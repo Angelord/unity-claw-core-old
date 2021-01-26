@@ -1,7 +1,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-namespace Claw.AI.Steering {
+namespace Claw.AI.Steering.Legacy {
     [RequireComponent(typeof(Rigidbody2D))]
     public class SteeringController : MonoBehaviour {
 

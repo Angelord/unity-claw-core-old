@@ -1,6 +1,6 @@
 ﻿using UnityEngine;
 
-namespace Claw.AI.Steering {
+namespace Claw.AI.Steering.Legacy {
 	public class OffsetPursuit : SteeringBehaviour {
 
 		[SerializeField] private Rigidbody2D leader = default;

@@ -1,6 +1,6 @@
 using UnityEngine;
 
-namespace Claw.AI.Steering {
+namespace Claw.AI.Steering.Legacy {
     public class FollowPath : SteeringBehaviour {
 
         private const float MIN_SEEK_DIST = 0.1f;

@@ -1,7 +1,7 @@
 
 using UnityEngine;
 
-namespace Claw.AI.Steering {
+namespace Claw.AI.Steering.Legacy {
     [RequireComponent(typeof(SteeringController))]
     public abstract class SteeringBehaviour : MonoBehaviour {
 

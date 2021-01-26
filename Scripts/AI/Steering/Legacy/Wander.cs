@@ -1,6 +1,6 @@
 using UnityEngine;
 
-namespace Claw.AI.Steering {
+namespace Claw.AI.Steering.Legacy {
     public class Wander : SteeringBehaviour {
 
         [SerializeField] private float wanderRadius = 3.0f;

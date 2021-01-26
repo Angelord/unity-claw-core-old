@@ -1,6 +1,6 @@
 using UnityEngine;
 
-namespace Claw.AI.Steering {
+namespace Claw.AI.Steering.Legacy {
     /// <summary>
     /// Helps group steering behaviours keep track of their neighbours.
     /// </summary>

@@ -1,6 +1,6 @@
 using UnityEngine;
 
-namespace Claw.AI.Steering {
+namespace Claw.AI.Steering.Legacy {
     public class Hide : SteeringBehaviour {
 
         [SerializeField] private Rigidbody2D pursuer = default;

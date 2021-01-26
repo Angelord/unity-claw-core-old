@@ -1,7 +1,7 @@
 
 using UnityEngine;
 
-namespace Claw.AI.Steering {
+namespace Claw.AI.Steering.Legacy {
     public class Seek : SteeringBehaviour {
 
         [SerializeField] private Transform target;

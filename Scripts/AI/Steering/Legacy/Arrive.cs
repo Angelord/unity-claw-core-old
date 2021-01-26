@@ -1,6 +1,6 @@
 using UnityEngine;
 
-namespace Claw.AI.Steering {
+namespace Claw.AI.Steering.Legacy {
     public class Arrive : SteeringBehaviour {
 
         [SerializeField] private Transform target = default;
