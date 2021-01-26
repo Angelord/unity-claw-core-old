@@ -21,6 +21,11 @@ namespace Claw.Chrono {
 			TryCreateInstance();
 			instance.StartCoroutine(coroutine);
 		}
+		
+		public static void Stop(IEnumerator coroutine) {
+			TryCreateInstance();
+			instance.StopCoroutine(coroutine);
+		}
 
 		public static void WaitOneFrameThenExecute(Action action) {
 			TryCreateInstance();
