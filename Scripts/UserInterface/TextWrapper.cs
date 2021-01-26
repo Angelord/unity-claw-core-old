@@ -10,9 +10,9 @@ namespace Claw.UserInterface {
     [ExecuteInEditMode]
     public class TextWrapper : UIBehaviour {
 
-        [SerializeField] private float paddingX;
-        [SerializeField] private float paddingY;
-        [SerializeField] private Text target;
+        [SerializeField] private float paddingX = default;
+        [SerializeField] private float paddingY = default;
+        [SerializeField] private Text target = default;
         private RectTransform rectTransform;
 
         protected override void Start() {

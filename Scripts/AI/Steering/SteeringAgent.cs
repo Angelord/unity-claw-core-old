@@ -5,9 +5,9 @@ namespace Claw.AI.Steering {
     [RequireComponent(typeof(Rigidbody2D))]
     public class SteeringAgent : MonoBehaviour {
 
-        [SerializeField] private SteeringController controller;
+        [SerializeField] private SteeringController controller = default;
 
-        [SerializeField] private LayerMask neighbourMask;
+        [SerializeField] private LayerMask neighbourMask = default;
 
         private Vector2 heading;
         

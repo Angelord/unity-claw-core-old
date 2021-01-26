@@ -5,7 +5,7 @@ using System.Collections.Generic;
 namespace Claw.UserInterface.Screens {
     public class UIScreenManager : MonoBehaviour {
 
-        [SerializeField] private UIScreen InitialScreen;
+        [SerializeField] private UIScreen InitialScreen = default;
         private readonly Stack<UIScreen> menuStack = new Stack<UIScreen>();
         private UIScreen[] screens;
 
