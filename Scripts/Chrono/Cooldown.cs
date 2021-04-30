@@ -21,6 +21,13 @@ namespace Claw.Chrono {
             lastReset = Time.time;
         }
 
+        /// <summary>
+        /// Instantly sets the cooldown to ready. 
+        /// </summary>
+        public void Set() {
+            lastReset = Time.time - duration;
+        }
+
         public void Reset() {
             lastReset = Time.time;
         }
