@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections;
+using Immortal.Stats;
 using UnityEngine;
 
 namespace Claw.Chrono {
