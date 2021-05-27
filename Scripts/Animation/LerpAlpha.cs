@@ -8,20 +8,25 @@ namespace Claw.Animation {
 	
 		private float intendedAlpha;
 		private Graphic image;
-	
+
+		public float Speed { get => speed; set => speed = value; }
+		
 		public float IntendedAlpha { get { return intendedAlpha; } set { intendedAlpha = value; } }
 
-		void Awake () {
+		private void Awake () {
 			image = GetComponent<Graphic>();
 			intendedAlpha = image.color.a;
 		}
 	
-		void Update() {
-			Color current = GetColor ();
+		private void Update() {
+			Color current = GetColor();
 			Color c = new Color(current.r, current.g, current.b, Mathf.Lerp(current.a, intendedAlpha, Time.deltaTime * speed));
 			SetColor (c);
 		}
 
+		/// <summary>
+		/// Instantly sets the graphic's alpha.
+		/// </summary>
 		public void SetAlpha(float value) {
 			Color col = image.color;
 			col.a = value;
