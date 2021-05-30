@@ -6,6 +6,8 @@ using UnityEngine;
 namespace Claw.Chrono {
 	public class CustomCoroutine : MonoBehaviour {
 
+		private const float MIN_LERP_TIME = 0.000001f;
+
 		private static CustomCoroutine instance;
 		
 		private static void TryCreateInstance() {
@@ -75,6 +77,11 @@ namespace Claw.Chrono {
 		}
 
 		IEnumerator DoLerpOverTime(float duration, float fromVal, float toVal, Action<float> callback) {
+
+			if (Math.Abs(duration) < MIN_LERP_TIME) {
+				callback(toVal);
+				yield break;
+			}
 
 			float timeElapsed = 0.0f;
 
