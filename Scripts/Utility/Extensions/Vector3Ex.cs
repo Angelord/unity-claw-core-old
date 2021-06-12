@@ -1,5 +1,4 @@
-﻿using Immortal;
-using UnityEngine;
+﻿using UnityEngine;
 
 namespace Claw.Utility.Extensions {
     public static class Vector3Ex {
