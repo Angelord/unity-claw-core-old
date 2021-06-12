@@ -79,7 +79,7 @@ namespace Claw.AI.Pathfinding {
                 current = GetNodeMeta(current.Parent);
             }
 
-            if(traverser.AddToResult(current.Node)) {
+            if(traverser.AddStarting && traverser.AddToResult(current.Node)) {
                 path.Add(startNode);
             }
 
