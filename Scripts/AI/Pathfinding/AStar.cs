@@ -3,7 +3,7 @@ using UnityEngine;
 
 namespace Claw.AI.Pathfinding {
     
-    public class AStar<T> where T : PathfindingNode {
+    public class AStar<T> where T : class, IPathfindingNode {
         
         private class NodeMeta {
 

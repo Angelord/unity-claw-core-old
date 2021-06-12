@@ -1,6 +1,6 @@
 ﻿
 namespace Claw.AI.Pathfinding {
-    public interface ITraverser<T> where T : PathfindingNode {
+    public interface ITraverser<T> where T : IPathfindingNode {
         bool CanEndOn(T node);
         bool CanTraverse(T node);
         bool AddToResult(T node);
