@@ -32,7 +32,7 @@ namespace Claw.AI.Pathfinding {
         private NodeMeta current;
 
         public Path<T> GetPath(T startNode, T endNode, ITraverser<T> traverser) {
-            if(startNode == this.endNode) {
+            if(startNode == endNode) {
                 return new Path<T>(new List<T>() { startNode });   
             }
 
