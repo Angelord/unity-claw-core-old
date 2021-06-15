@@ -6,7 +6,7 @@ namespace Claw.AI.Pathfinding {
         
         private class NodeMeta {
             
-            public int GCost;
+            public float GCost;
         
             public T Node { get; }
 
