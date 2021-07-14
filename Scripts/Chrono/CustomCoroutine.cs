@@ -47,7 +47,7 @@ namespace Claw.Chrono {
 
 		public static Coroutine LerpOverTime(float duration, float fromVal, float toVal, Action<float> callback) {
 			TryCreateInstance();
-			return instance.StartCoroutine(instance.DoLerpOverTime(duration, fromVal, toVal, callback));
+			return instance.StartCoroutine(DoLerpOverTime(duration, fromVal, toVal, callback));
 		}
 
 		IEnumerator DoWaitOneFrameThenExecute(Action action) {
@@ -76,7 +76,7 @@ namespace Claw.Chrono {
 			action();
 		}
 
-		IEnumerator DoLerpOverTime(float duration, float fromVal, float toVal, Action<float> callback) {
+		public static IEnumerator DoLerpOverTime(float duration, float fromVal, float toVal, Action<float> callback) {
 
 			if (Math.Abs(duration) < MIN_LERP_TIME) {
 				callback(toVal);
