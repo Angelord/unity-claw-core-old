@@ -3,7 +3,7 @@ using System.Collections.Generic;
 
 namespace Claw.AI.Pathfinding {
     
-    public class Path<T> : IReadOnlyList<T> where T : PathfindingNode {
+    public class Path<T> : IReadOnlyList<T> where T : IPathfindingNode {
 
         private readonly List<T> nodes;
 

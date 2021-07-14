@@ -3,7 +3,7 @@ using UnityEngine;
 
 namespace Claw.AI.Pathfinding {
     
-    public class AStar<T> where T : PathfindingNode {
+    public class AStar<T> where T : class, IPathfindingNode {
         
         private class NodeMeta {
 
@@ -32,7 +32,7 @@ namespace Claw.AI.Pathfinding {
         private NodeMeta current;
 
         public Path<T> GetPath(T startNode, T endNode, ITraverser<T> traverser) {
-            if(startNode == this.endNode) {
+            if(startNode == endNode) {
                 return new Path<T>(new List<T>() { startNode });   
             }
 
@@ -79,7 +79,7 @@ namespace Claw.AI.Pathfinding {
                 current = GetNodeMeta(current.Parent);
             }
 
-            if(traverser.AddToResult(current.Node)) {
+            if(traverser.AddStarting && traverser.AddToResult(current.Node)) {
                 path.Add(startNode);
             }
 

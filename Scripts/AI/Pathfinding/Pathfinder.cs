@@ -1,6 +1,6 @@
 ﻿namespace Claw.AI.Pathfinding {
 
-    public class Pathfinder<T> where T : PathfindingNode {
+    public class Pathfinder<T> where T : class, IPathfindingNode {
 
         private readonly AStar<T> aStar;
         private readonly SimpleFill<T> simpleFill;

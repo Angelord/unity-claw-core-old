@@ -1,7 +1,5 @@
 ﻿using System.Collections;
-using Claw.Animation;
 using Claw.Utility.Extensions;
-using Immortal.Stats;
 using UnityEngine;
 
 namespace Claw.Rendering {

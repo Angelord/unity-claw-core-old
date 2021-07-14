@@ -2,11 +2,11 @@
 
 namespace Claw.AI.Pathfinding {
     
-    public class SimpleFill<T> where T : PathfindingNode {
+    public class SimpleFill<T> where T : IPathfindingNode {
         
         private class NodeMeta {
             
-            public int GCost;
+            public float GCost;
         
             public T Node { get; }
 
