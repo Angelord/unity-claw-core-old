@@ -4,6 +4,10 @@ using UnityEngine;
 namespace Claw.Utility.Extensions {
     public static class ListEx {
 
+        public static bool IsValidIndex<T>(this List<T> list, int index) {
+            return index >= 0 && index < list.Count;
+        } 
+
         public static T RandomElement<T>(this List<T> list) {
             return list[Random.Range(0, list.Count)];
         }
