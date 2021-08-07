@@ -1,9 +1,14 @@
 ﻿﻿using UnityEngine;
+ using UnityEngine.Events;
 
-namespace Claw.UserInterface.Screens {
-    public abstract class UIScreen : MonoBehaviour {
+ namespace Claw.UserInterface.Screens {
+    public class UIScreen : MonoBehaviour {
 
         private UIScreenManager screenManager;
+
+        [SerializeField] private UnityEvent onShowEv;
+        
+        [SerializeField] private UnityEvent onHideEv;
         
         public void Initialize(UIScreenManager screenManager) {
             this.screenManager = screenManager;
@@ -14,11 +19,13 @@ namespace Claw.UserInterface.Screens {
         public void Show() {
             gameObject.SetActive(true);
             OnShow();
+            onShowEv?.Invoke();
         }
 
         public void Hide() {
             gameObject.SetActive(false);
             OnHide();
+            onHideEv?.Invoke();
         }
 
         protected T OpenScreen<T>() where T : UIScreen {

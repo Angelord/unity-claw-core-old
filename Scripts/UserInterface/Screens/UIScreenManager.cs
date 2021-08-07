@@ -9,6 +9,8 @@ namespace Claw.UserInterface.Screens {
         private readonly Stack<UIScreen> menuStack = new Stack<UIScreen>();
         private UIScreen[] screens;
 
+        public int StackSize => menuStack.Count;
+
         private void Start() {
             Assert.IsNotNull(InitialScreen, "UI Manager initial screen not set!");
             
@@ -19,6 +21,19 @@ namespace Claw.UserInterface.Screens {
             
             menuStack.Push(InitialScreen);
             InitialScreen.Show();
+        }
+
+        /// <summary>
+        /// Clears the stack and puts the specified screen on top
+        /// </summary>
+        public void Enter(UIScreen screen) {
+            
+            if(menuStack.Count > 0)
+                menuStack.Pop().Hide();
+            
+            menuStack.Clear();
+
+            Push(screen);
         }
 
         public T Push<T>() where T : UIScreen {
@@ -33,9 +48,10 @@ namespace Claw.UserInterface.Screens {
             throw new ScreenNotFoundException();
         }
         
-        private void Push(UIScreen state) {
-            
-            menuStack.Peek().Hide();
+        public void Push(UIScreen state) {
+           
+            if(menuStack.Count > 0)
+                menuStack.Peek().Hide();
             
             menuStack.Push(state);
             state.Show();
@@ -43,7 +59,7 @@ namespace Claw.UserInterface.Screens {
 
         public void Pop() {
             
-            menuStack.Pop()?.Hide(); // Hide 
+            menuStack.Pop()?.Hide(); 
             
             menuStack.Peek()?.Show();
         }
