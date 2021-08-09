@@ -28,11 +28,15 @@
             onHideEv?.Invoke();
         }
 
-        protected T OpenScreen<T>() where T : UIScreen {
+        protected T EnterScreen<T>() where T : UIScreen {
+            return screenManager.Enter<T>();
+        }
+
+        protected T PushScreen<T>() where T : UIScreen {
             return screenManager.Push<T>();
         }
 
-        protected void ReturnToPrevious() {
+        protected void PopScreen() {
             screenManager.Pop();
         }
 

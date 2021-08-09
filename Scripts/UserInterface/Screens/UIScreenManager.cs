@@ -11,6 +11,8 @@ namespace Claw.UserInterface.Screens {
 
         public int StackSize => menuStack.Count;
 
+        private UIScreen CurrentScreen => menuStack.Peek();
+
         private void Start() {
             Assert.IsNotNull(InitialScreen, "UI Manager initial screen not set!");
             
@@ -21,6 +23,22 @@ namespace Claw.UserInterface.Screens {
             
             menuStack.Push(InitialScreen);
             InitialScreen.Show();
+        }
+
+        public bool IsOpen<T>() where T : UIScreen {
+            return CurrentScreen is T;
+        }
+
+        /// <summary>
+        /// Clears the stack and puts the screen of the specified type on top.
+        /// </summary>
+        public T Enter<T>() where T : UIScreen {
+
+            T screen = FindScreen<T>();
+
+            Enter(screen);
+            
+            return screen;
         }
 
         /// <summary>
@@ -37,15 +55,12 @@ namespace Claw.UserInterface.Screens {
         }
 
         public T Push<T>() where T : UIScreen {
-            foreach (UIScreen uiScreen in screens) {
-                if (uiScreen.GetType() != typeof(T)) continue;
-                
-                Push(uiScreen);
-                
-                return uiScreen as T;
-            }
             
-            throw new ScreenNotFoundException();
+            T screen = FindScreen<T>();
+
+            Push(screen);
+
+            return screen;
         }
         
         public void Push(UIScreen state) {
@@ -62,6 +77,22 @@ namespace Claw.UserInterface.Screens {
             menuStack.Pop()?.Hide(); 
             
             menuStack.Peek()?.Show();
+        }
+
+        /// <summary>
+        /// Finds the specified screen type inside the UI manager.
+        /// </summary>
+        /// <typeparam name="T"></typeparam>
+        /// <returns></returns>
+        private T FindScreen<T>() where T : UIScreen {
+            
+            foreach (UIScreen uiScreen in screens) {
+                if (uiScreen.GetType() != typeof(T)) continue;
+                
+                return uiScreen as T;
+            }
+
+            throw new ScreenNotFoundException();
         }
     }
 }
