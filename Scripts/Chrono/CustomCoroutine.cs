@@ -74,6 +74,25 @@ namespace Claw.Chrono {
 
 			action();
 		}
+		
+		public static IEnumerator DoLerpOverTime01(float duration, Action<float> callback) {
+
+			if (Math.Abs(duration) < MIN_LERP_TIME) {
+				callback(1.0f);
+				yield break;
+			}
+
+			float timeElapsed = 0.0f;
+
+			while (timeElapsed < duration) {
+
+				yield return 0;
+
+				timeElapsed += Time.deltaTime;
+
+				callback(timeElapsed / duration);
+			}
+		}
 
 		public static IEnumerator DoLerpOverTime(float duration, float fromVal, float toVal, Action<float> callback) {
 
