@@ -1,28 +1,45 @@
 ﻿﻿using UnityEngine;
 using UnityEngine.Assertions;
 using System.Collections.Generic;
- 
-namespace Claw.UserInterface.Screens {
+ using Immortal._Vendor.Scripts.Utility.Extensions;
+
+ namespace Claw.UserInterface.Screens {
     public class UIScreenManager : MonoBehaviour {
 
         [SerializeField] private UIScreen InitialScreen = default;
+        
         private readonly Stack<UIScreen> menuStack = new Stack<UIScreen>();
+        
         private UIScreen[] screens;
+
+        private bool initialized;
 
         public int StackSize => menuStack.Count;
 
-        private UIScreen CurrentScreen => menuStack.Peek();
+        public UIScreen CurrentScreen => menuStack.Peek();
 
+        // Initializing in Start as most ui Depends on other object having initialized themselves already, whilst
+        // not much should depend on the UI having initialized itself.
         private void Start() {
-            Assert.IsNotNull(InitialScreen, "UI Manager initial screen not set!");
             
-            screens = GetComponentsInChildren<UIScreen>(true);
+            Init();
+        }
+
+        public void Init() {
+
+            if (initialized) return;
+            
+            screens = MonoBehaviourEx.GetComponentsInChildrenNoRoot<UIScreen>(this, true);
             foreach (UIScreen screen in screens) {
                 screen.Initialize(this);
             }
-            
-            menuStack.Push(InitialScreen);
-            InitialScreen.Show();
+
+            if (InitialScreen != null) {
+                menuStack.Push(InitialScreen);
+                InitialScreen.Show();
+            }
+
+            initialized = true;
         }
 
         public bool IsOpen<T>() where T : UIScreen {
@@ -64,6 +81,8 @@ namespace Claw.UserInterface.Screens {
         }
         
         public void Push(UIScreen state) {
+
+            if (menuStack.Count > 0 && state == CurrentScreen) return;
            
             if(menuStack.Count > 0)
                 menuStack.Peek().Hide();
@@ -74,9 +93,11 @@ namespace Claw.UserInterface.Screens {
 
         public void Pop() {
             
-            menuStack.Pop()?.Hide(); 
-            
-            menuStack.Peek()?.Show();
+            menuStack.Pop()?.Hide();
+
+            if (menuStack.Count > 0) {
+                menuStack.Peek()?.Show();
+            }
         }
 
         /// <summary>
