@@ -105,7 +105,7 @@ using System.Collections.Generic;
         /// </summary>
         /// <typeparam name="T"></typeparam>
         /// <returns></returns>
-        private T FindScreen<T>() where T : UIScreen {
+        public T FindScreen<T>() where T : UIScreen {
             
             foreach (UIScreen uiScreen in screens) {
                 if (uiScreen.GetType() != typeof(T)) continue;
