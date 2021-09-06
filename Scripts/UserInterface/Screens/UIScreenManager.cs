@@ -43,7 +43,7 @@ using System.Collections.Generic;
         }
 
         public bool IsOpen<T>() where T : UIScreen {
-            return CurrentScreen is T;
+            return menuStack.Count > 0 && CurrentScreen is T;
         }
 
         /// <summary>
