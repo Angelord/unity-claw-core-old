@@ -16,7 +16,7 @@ using System.Collections.Generic;
 
         public int StackSize => menuStack.Count;
 
-        public UIScreen CurrentScreen => menuStack.Peek();
+        public UIScreen CurrentScreen => menuStack.Count > 0 ? menuStack.Peek() : null;
 
         // Initializing in Start as most ui Depends on other object having initialized themselves already, whilst
         // not much should depend on the UI having initialized itself.
