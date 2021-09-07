@@ -2,6 +2,11 @@
 
 namespace Claw.Utility.Extensions {
     public static class RectTransformEx {
+
+        public static void SetHeight(this RectTransform rt, float height) {
+            rt.sizeDelta = new Vector2(rt.sizeDelta.x, height);
+        }
+
         public static void SetLeft(this RectTransform rt, float left) {
             rt.offsetMin = new Vector2(left, rt.offsetMin.y);
         }
