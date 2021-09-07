@@ -18,5 +18,25 @@ namespace Immortal._Vendor.Scripts.Utility.Extensions {
 
             return result.ToArray();
         }
+
+        public static T[] GetComponentsOfDirectChildren<T>(MonoBehaviour obj, bool includeInactive) where T : MonoBehaviour {
+
+            Transform transform = obj.transform;
+            
+            List<T> result = new List<T>(transform.childCount);
+
+            for (int i = 0; i < transform.childCount; i++) {
+
+                Transform child = transform.GetChild(i);
+
+                if (!includeInactive && !child.gameObject.activeSelf) { continue; }
+                
+                T component = child.GetComponent<T>();
+
+                if (component != null) result.Add(component);
+            }
+
+            return result.ToArray();
+        }
     }
 }

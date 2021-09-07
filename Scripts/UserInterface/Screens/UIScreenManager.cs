@@ -29,7 +29,7 @@ using System.Collections.Generic;
 
             if (initialized) return;
             
-            screens = MonoBehaviourEx.GetComponentsInChildrenNoRoot<UIScreen>(this, true);
+            screens = MonoBehaviourEx.GetComponentsOfDirectChildren<UIScreen>(this, true);
             foreach (UIScreen screen in screens) {
                 screen.Initialize(this);
             }
