@@ -1,4 +1,5 @@
-﻿﻿using UnityEngine;
+﻿﻿using System;
+ using UnityEngine;
  using UnityEngine.Events;
 
  namespace Claw.UserInterface.Screens {
@@ -39,6 +40,12 @@
         protected void PopScreen() {
             screenManager.Pop();
         }
+
+        /// <summary>
+        /// Unrelated to the other UI events. This is just the regular unity OnDestroy.
+        /// Written as overrideable here so we don't forget that some of the subclasses use it.
+        /// </summary>
+        protected virtual void OnDestroy() { }
 
         /// <summary> Called on Start. Use to run any initialization code. </summary>
         protected virtual void OnInitialize() { }

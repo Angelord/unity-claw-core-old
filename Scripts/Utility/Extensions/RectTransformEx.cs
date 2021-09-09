@@ -6,6 +6,13 @@ namespace Claw.Utility.Extensions {
         public static void SetHeight(this RectTransform rt, float height) {
             rt.sizeDelta = new Vector2(rt.sizeDelta.x, height);
         }
+        
+        /// <summary>
+        /// Retrieves the 'y' component of the rect's sizeDelta.
+        /// </summary>
+        public static float GetHeight(this RectTransform rt) {
+            return rt.sizeDelta.y;
+        }
 
         public static void SetLeft(this RectTransform rt, float left) {
             rt.offsetMin = new Vector2(left, rt.offsetMin.y);
