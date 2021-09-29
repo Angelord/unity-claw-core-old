@@ -12,6 +12,12 @@
         [SerializeField] private UnityEvent onHideEv;
         
         public void Initialize(UIScreenManager screenManager) {
+
+            if (this.screenManager != null) {
+                Debug.LogError("Attempting to initialize a UI screen twice!");
+                return;
+            }
+            
             this.screenManager = screenManager;
             gameObject.SetActive(false);
             OnInitialize();
