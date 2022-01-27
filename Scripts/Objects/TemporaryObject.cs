@@ -6,11 +6,7 @@ namespace Claw.Objects {
 		[SerializeField] private float lifetime = 1.0f;
 
 		private void Start() {
-			Invoke("DestroySelf", lifetime);
-		}
-
-		private void DestroySelf() {
-			Destroy(this.gameObject);
+			Destroy(gameObject, lifetime);
 		}
 	}
 }
